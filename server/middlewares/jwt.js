@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
-import config from '../config';
 import userModel from '../models/user.model';
+import fs from 'fs';
 
 async function validateSession(req, res, next) {
     try {
         const token = req.headers["authorization"];
-        const result = jwt.verify(token, config.JWT_SECRET);
-        const user = await userModel.findUser(result.data._id);
-        req.user = user;
+        const certificate = fs.readFileSync('cert.pem');
+        const result = jwt.verify(token, certificate);
+        req.user = await userModel.findUser(result.data._id);
         return next();
 
     } catch (err) {

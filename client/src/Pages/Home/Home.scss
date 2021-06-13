@@ -46,3 +46,47 @@
         }
     }
 }
+
+@media only screen and(max-width: 1200px) {
+    .home-page {
+        .hero-section {
+            .content {
+                div {
+                    width: 75%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and(max-width: 968px) {
+    .home-page {
+        .hero-section {
+            .content {
+                width: 100%;
+
+                div {
+                    width: 75%;
+                    padding: 0 2rem;
+                }
+            }
+
+            .bg-img {
+                display: none;
+            }
+        }
+    }
+}
+
+@media only screen and(max-width: 768px) {
+    .home-page {
+        .hero-section {
+            .content {
+                div {
+                    width: 100%;
+                }
+            }
+
+        }
+    }
+}

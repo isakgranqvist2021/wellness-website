@@ -11,7 +11,7 @@ nav {
     overflow: hidden;
     transition: all 315ms ease;
     z-index: 2;
-    
+
     &.open {
         width: 300px;
     }
@@ -41,14 +41,35 @@ nav {
                 border-bottom: 1px solid rgb(240, 240, 240);
             }
 
-            a {
+            a, button {
                 width: 75%;
-                margin: 1rem auto;
+                margin: .6rem auto;
                 display: block;
                 padding: .82rem;
                 border-radius: .72rem;
                 color: rgb(58, 58, 58);
                 text-decoration: none;
+
+                &:hover {
+                    color:rgb(180, 180, 180);
+                }
+            }
+
+            button {
+                border: none;
+                background-color: rgb(187, 24, 12);
+                color: #fff;
+                position: absolute;
+                cursor: pointer;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: calc(300px * .75);
+
+                &:hover {
+                    background-color: rgb(230, 57, 45);
+                    color: #fff;
+                }
             }
         }
     }

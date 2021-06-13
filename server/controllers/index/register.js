@@ -1,15 +1,15 @@
 import userModel from "../../models/user.model";
 
 async function register(req, res) {
-    if (!req.body.name) return res.json({ message: 'you must fill out your name', success: false, data: null });
-    if (!req.body.email) return res.json({ message: 'you must fill out your email', success: false, data: null });
-    if (!req.body.password) return res.json({ message: 'you must fill out a password', success: false, data: null });
+    if (!req.body.name) return res.json({ message: 'you must fill out your name', success: false, data: 0 });
+    if (!req.body.email) return res.json({ message: 'you must fill out your email', success: false, data: 1 });
+    if (!req.body.password) return res.json({ message: 'you must fill out a password', success: false, data: 2 });
 
     try {
-        await userModel.registerUser(req.body);
-        return res.json({ message: 'your account has been created', success: true, data: null });
+        const token = await userModel.registerUser(req.body);
+        return res.json({ message: 'your account has been created', success: true, data: token });
     } catch (err) {
-        return res.json({ message: err, success: false, data: null });
+        return res.json({ message: err.message, success: false, data: err.data });
     }
 }
 

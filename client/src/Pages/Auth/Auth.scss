@@ -1,0 +1,67 @@
+.auth-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+
+    form {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        padding: 2rem;
+        width: 430px;
+        background-color: #ffffffde;
+        border-radius: .3rem;
+        
+        h1 {
+            margin-bottom: 2rem;
+            font-size: 2.4rem;
+            color: rgb(82, 82, 82);
+        }
+
+        section {
+            margin: 1.25rem 0;
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            input {
+                padding: .5rem;
+                display: block;
+                width: 100%;
+                border: 1px solid rgb(190, 190, 190);
+                outline: none;
+                border-radius: .25rem;
+
+                &.show {
+                    border-color: red;
+                }
+
+                &:focus {
+                    border-color: rgb(12, 166, 238);
+                }
+            }
+
+            p {
+                color: red;
+                margin: 10px 0 0 0;
+                text-transform: capitalize;
+            }
+        }
+
+        button {
+            margin: 0 0 0 auto;
+            display: block;
+            padding: .7rem;
+            background-color: rgb(18, 72, 189);
+            border: none;
+            color: #fff;
+            border-radius: .25rem;
+        }
+
+        a {
+            display: block;
+        }
+    }
+}

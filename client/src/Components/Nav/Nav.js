@@ -1,11 +1,26 @@
 import React from 'react';
 import './Nav.scss';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import logo from './main-logo.png';
 import navStore from '../../Store/nav.store';
+import auth from '../../Utils/Auth';
+import authStore from '../../Store/auth.store';
 
 function Nav(props) {
+    const history = useHistory();
+    const [loggedIn, setLoggedIn] = React.useState(auth.isLoggedIn());
+
+    authStore.subscribe(() => setLoggedIn(authStore.getState().loggedIn));
+
     const closeNav = () => {
+        navStore.dispatch({ type: 'set', newState: false });
+    }
+
+    const logout = () => {
+        setLoggedIn(false);
+        auth.clearToken();
+        history.push('/login');
+        authStore.dispatch({ type: 'logout' });
         navStore.dispatch({ type: 'set', newState: false });
     }
 
@@ -24,14 +39,25 @@ function Nav(props) {
                 </div>
 
                 <div className="link-group">
-                    <Link to="/" onClick={closeNav}>Ems Training</Link>
-                    <Link to="/" onClick={closeNav}>Abdominal Training</Link>
-                    <Link to="/" onClick={closeNav}>Light Therapy</Link>
+                    <Link to="/ems-training" onClick={closeNav}>Ems Training</Link>
+                    <Link to="/abdominal-training" onClick={closeNav}>Abdominal Training</Link>
+                    <Link to="/light-therapy" onClick={closeNav}>Light Therapy</Link>
                 </div>
 
                 <div className="link-group">
                     <Link to="/contact" onClick={closeNav}>Contact</Link>
-                    <Link to="/login" onClick={closeNav}>Login</Link>
+
+                    {!loggedIn ? (
+                        <div>
+                            <Link to="/login" onClick={closeNav}>Login</Link>
+
+                        </div>
+                    ) : (
+                        <div>
+                            <Link to="/dashboard" onClick={closeNav}>Dashboard</Link>
+                            <button onClick={logout}>Logout</button>
+                        </div>
+                    )}
                 </div>
             </div>
         </nav>

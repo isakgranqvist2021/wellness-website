@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import fs from 'fs';
+import jwt from 'jsonwebtoken';
 
 const Schema = mongoose.Schema;
 
@@ -17,12 +19,14 @@ async function registerUser(data) {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(data.password, salt);
         data.password = hash;
-        return await new UserModel(data).save();
+        const newUser = await new UserModel(data).save();
+        return Promise.resolve(signData({ _id: newUser._id }));
     } catch (err) {
         console.log(err);
-        return Promise.reject('email already exists');
+        return Promise.reject({ message: 'email already exists', data: 1 });
     }
 }
+
 
 async function loginUser(data) {
     try {
@@ -31,12 +35,13 @@ async function loginUser(data) {
 
         if (OK) {
             delete user.password;
-            return Promise.resolve(user);
+            return Promise.resolve(signData({ _id: user._id }));
         }
 
-        return Promise.reject('wrong password, sorry');
+        return Promise.reject({ message: 'wrong password, sorry', data: 1 });
     } catch (err) {
-        return Promise.reject('you\'ve entered wrong information');
+        console.log(err)
+        return Promise.reject({ message: 'you\'ve entered wrong information', data: 0 });
     }
 }
 
@@ -54,6 +59,18 @@ async function findUser(data) {
     } catch (err) {
         return Promise.reject('invalid user id');
     }
+}
+
+
+function signData(data) {
+    const key = fs.readFileSync('key.pem');
+
+    const token = jwt.sign({
+        data: data,
+        exp: Math.floor(Date.now() / 1000) + (60 * 24)
+    }, key, { algorithm: 'RS256' });
+
+    return token;
 }
 
 export default { registerUser, loginUser, updateUser, deleteUser, findUser };
