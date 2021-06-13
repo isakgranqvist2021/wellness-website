@@ -1,0 +1,29 @@
+.toggle-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    margin: 1rem;
+    transition: all 315ms ease;
+    z-index: 2;
+    &.open {
+        left: 300px;
+    }
+
+    span {
+        font-size: 3rem;
+    }
+}
+
+.filler {
+    z-index: 1;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    transition: all 315ms ease;
+
+    &.open {
+        background-color: rgba(0, 0, 0, 0.418);
+        pointer-events: auto;
+    }
+}

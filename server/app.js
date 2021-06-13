@@ -12,6 +12,7 @@ import index from './routers/index';
 import users from './routers/users';
 import stream from './routers/stream';
 
+app.set('view engine', 'ejs');
 app.use('/', index);
 app.use('/users', users);
 app.use('/stream', stream);

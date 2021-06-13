@@ -1,0 +1,48 @@
+.home-page {
+    
+    .hero-section {
+        display: flex;
+        height: 100vh;    
+        justify-content: space-evenly;
+        
+        .content {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            div {
+                width: 50%;
+
+                h1 {
+                    max-width: 25ch;
+                    font-size: 3rem;
+                }
+
+                p {
+                    margin: 1.6rem 0;
+                }
+
+                button {
+                    padding: 1rem;
+                    border: none;
+                    font-weight: 700;
+                    background-color: #0c55c4;
+                    color: #fff;
+                    text-transform: uppercase;
+                    border-radius: 1rem;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .bg-img {
+            width: 50%;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+    }
+}
