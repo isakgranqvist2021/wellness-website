@@ -4,5 +4,6 @@ dotenv.config();
 export default {
     PORT: process.env.PORT || 3000,
     MONGO_URI: process.env.MONGO_URI,
-    SESSION_SECRET: ''
+    SESSION_SECRET: '',
+    JWT_SECRET: 'secret'
 }

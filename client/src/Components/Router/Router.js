@@ -14,6 +14,7 @@ import Pricing from '../../Pages/Pricing';
 import About from '../../Pages/About';
 import Contact from '../../Pages/Contact';
 import OpeningTimes from '../../Pages/OpeningTimes';
+import Login from '../../Pages/Login';
 
 function Router(props) {
     const [open, setOpen] = React.useState(false);
@@ -46,6 +47,7 @@ function Router(props) {
                 <Route path="/about" component={About} exact />
                 <Route path="/opening-times" component={OpeningTimes} exact />
                 <Route path="/contact" component={Contact} exact />
+                <Route path="/login" component={Login} exact />
             </Switch>
         </BrowserRouter>
     );

@@ -31,6 +31,7 @@ function Nav(props) {
 
                 <div className="link-group">
                     <Link to="/contact" onClick={closeNav}>Contact</Link>
+                    <Link to="/login" onClick={closeNav}>Login</Link>
                 </div>
             </div>
         </nav>
