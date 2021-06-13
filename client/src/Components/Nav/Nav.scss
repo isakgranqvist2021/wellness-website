@@ -1,6 +1,6 @@
 $navWidth: 300px;
 
-nav {
+.main-nav {
     position: fixed;
     left: 0;
     top: 0;
@@ -28,6 +28,8 @@ nav {
         img {
             margin: 0 auto;
             display: block;
+            max-width: 215px;
+            object-fit: contain;
         }
     
         .link-group {

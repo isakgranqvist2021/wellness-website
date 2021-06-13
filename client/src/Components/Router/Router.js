@@ -21,6 +21,10 @@ import Dashboard from '../../Pages/Auth/Dashboard/Dashboard';
 import LightTherapy from '../../Pages/LightTherapy';
 import EmsTraining from '../../Pages/EmsTraining';
 import AbdominalTraining from '../../Pages/AbdominalTraining';
+import Content from '../../Pages/Auth/Dashboard/Content/Content';
+import Images from '../../Pages/Auth/Dashboard/Images/Images';
+import Requests from '../../Pages/Auth/Dashboard/Requests/Requests';
+import Services from '../../Pages/Auth/Dashboard/Services/Services';
 
 function Loading(props) {
     return (
@@ -61,7 +65,6 @@ function Router(props) {
             if (!auth.isLoggedIn()) {
                 next();
             }
-
             next.redirect('/dashboard');
         }
     };
@@ -84,10 +87,14 @@ function Router(props) {
                     <GuardedRoute path="/contact" component={Contact} exact />
                     <GuardedRoute path="/login" component={Login} meta={{ auth: false }} exact />
                     <GuardedRoute path="/register" component={Register} meta={{ auth: false }} exact />
-                    <GuardedRoute path="/dashboard" component={Dashboard} meta={{ auth: true }} exact />
                     <GuardedRoute path="/light-therapy" component={LightTherapy} meta={{ auth: true }} exact />
                     <GuardedRoute path="/abdominal-training" component={AbdominalTraining} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/ems-training" component={EmsTraining} meta={{ auth: true }} exact />
+
+                    <GuardedRoute path="/dashboard" component={Dashboard} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-content" component={Content} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-images" component={Images} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-requests" component={Requests} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-services" component={Services} meta={{ auth: true }} exact />
                 </Switch>
             </GuardProvider>
         </BrowserRouter>

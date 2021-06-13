@@ -25,7 +25,7 @@ function Nav(props) {
     }
 
     return (
-        <nav className={props.open ? 'open' : 'closed'} onClick={(e) => e.stopPropagation()}>
+        <nav className={props.open ? 'main-nav open' : 'main-nav closed'} onClick={(e) => e.stopPropagation()}>
             <div className="nav-content">
                 <Link to="/" onClick={closeNav}>
                     <img src={logo} alt="Page Logo" />
@@ -36,6 +36,7 @@ function Nav(props) {
                     <Link to="/pricing" onClick={closeNav}>Pricing</Link>
                     <Link to="/opening-times" onClick={closeNav}>Opening Times</Link>
                     <Link to="/about" onClick={closeNav}>About</Link>
+                    <Link to="/contact" onClick={closeNav}>Contact</Link>
                 </div>
 
                 <div className="link-group">
@@ -45,8 +46,6 @@ function Nav(props) {
                 </div>
 
                 <div className="link-group">
-                    <Link to="/contact" onClick={closeNav}>Contact</Link>
-
                     {!loggedIn ? (
                         <div>
                             <Link to="/login" onClick={closeNav}>Login</Link>
