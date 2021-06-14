@@ -1,0 +1,41 @@
+.dashboard-nav {
+    margin: 1rem 0;
+    padding: 2rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border-radius: .5rem;
+    display: flex;
+    flex-flow: row wrap;
+    a {
+        text-decoration: none;
+        display: inline-block;
+        color: rgb(10, 104, 141);
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:not(:last-of-type) {
+
+            &::after {
+                content: '|';
+                margin: 0 1rem;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .dashboard-nav {
+        gap: 1rem;
+        -ms-grid-column-span: 1rem;
+        -ms-grid-row-span: 1rem;
+        
+        a {
+            font-size: .85rem;
+            &::after {
+                display: none !important;
+            }
+        }
+    }
+}

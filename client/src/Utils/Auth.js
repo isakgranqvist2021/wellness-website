@@ -1,5 +1,4 @@
 import JWT from 'jwt-client';
-import authStore from '../Store/auth.store';
 
 function isLoggedIn() {
     let OK = JWT.validate(getToken());

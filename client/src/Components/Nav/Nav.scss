@@ -24,7 +24,8 @@ $navWidth: 300px;
         padding: 100px 0;
         width: $navWidth;
         height: 100%;
-
+        overflow-x: hidden;
+        overflow-y: auto;
         img {
             margin: 0 auto;
             display: block;

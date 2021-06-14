@@ -1,6 +1,5 @@
 import React from 'react';
 import './Dashboard.scss';
-
 import { Link } from 'react-router-dom';
 
 function Dashboard(props) {

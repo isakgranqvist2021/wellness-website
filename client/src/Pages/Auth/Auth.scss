@@ -34,19 +34,9 @@
                 outline: none;
                 border-radius: .25rem;
 
-                &.show {
-                    border-color: red;
-                }
-
                 &:focus {
                     border-color: rgb(12, 166, 238);
                 }
-            }
-
-            p {
-                color: red;
-                margin: 10px 0 0 0;
-                text-transform: capitalize;
             }
         }
 
@@ -58,6 +48,11 @@
             border: none;
             color: #fff;
             border-radius: .25rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgb(24, 82, 207);
+            }
         }
 
         a {

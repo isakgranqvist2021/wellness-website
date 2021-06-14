@@ -5,6 +5,7 @@ import logo from './main-logo.png';
 import navStore from '../../Store/nav.store';
 import auth from '../../Utils/Auth';
 import authStore from '../../Store/auth.store';
+import alertsStore from '../../Store/alerts.store';
 
 function Nav(props) {
     const history = useHistory();
@@ -22,6 +23,12 @@ function Nav(props) {
         history.push('/login');
         authStore.dispatch({ type: 'logout' });
         navStore.dispatch({ type: 'set', newState: false });
+        alertsStore.dispatch({
+            type: 'set', newState: {
+                text: 'see you!',
+                error: false
+            }
+        })
     }
 
     return (

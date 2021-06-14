@@ -25,7 +25,7 @@ h1,h2,h3,h4,h5,h6 {
 
 @media only screen and(min-width: 1400px) {
     .container {
-        width: 1320px;
+        width: 75%;
     }
 }
 
@@ -37,19 +37,19 @@ h1,h2,h3,h4,h5,h6 {
 
 @media only screen and(max-width: 1200px) and(min-width: 992px)  {
     .container {
-        width: 960px;
+        width: 75%;
     }
 }
 
 @media only screen and(max-width: 992px) and(min-width: 768px) {
     .container {
-        width: 1320px;
+        width: 75%;
     }
 }
 
 @media only screen and(max-width: 768px) and(min-width: 576px) {
     .container {
-        width: 1320px;
+        width: 75%;
     }
 }
 

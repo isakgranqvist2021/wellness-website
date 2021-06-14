@@ -73,4 +73,10 @@ function signData(data) {
     return token;
 }
 
-export default { registerUser, loginUser, updateUser, deleteUser, findUser };
+export default {
+    registerUser,
+    loginUser,
+    updateUser,
+    deleteUser,
+    findUser
+};

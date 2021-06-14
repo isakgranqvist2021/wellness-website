@@ -1,10 +1,17 @@
 const serverAddr = 'http://localhost:3000';
 
+function headers() {
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('session')
+    }
+}
+
 async function GET(url) {
     try {
         const response = await fetch(serverAddr + url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: headers()
         });
 
         return await response.json();
@@ -14,11 +21,13 @@ async function GET(url) {
 }
 
 async function POST(url, body) {
+    console.log(headers());
+
     try {
         const response = await fetch(serverAddr + url, {
             method: 'POST',
             body: body,
-            headers: { 'Content-Type': 'application/json' }
+            headers: headers()
         });
 
         return await response.json();
