@@ -2,7 +2,7 @@ import React from 'react';
 
 function Requests(props) {
     return (
-        <div>
+        <div className="container">
             <h1>Requests</h1>
         </div>
     )

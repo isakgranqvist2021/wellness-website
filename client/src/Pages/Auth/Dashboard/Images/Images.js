@@ -2,7 +2,7 @@ import React from 'react';
 
 function Images(props) {
     return (
-        <div>
+        <div className="container">
             <h1>Images</h1>
         </div>
     )

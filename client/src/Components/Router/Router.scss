@@ -5,7 +5,7 @@
     cursor: pointer;
     margin: 1rem;
     transition: all 315ms ease;
-    z-index: 2;
+    z-index: 3;
     &.open {
         left: 300px;
     }
@@ -16,7 +16,7 @@
 }
 
 .filler {
-    z-index: 1;
+    z-index: 2;
     position: fixed;
     inset: 0;
     pointer-events: none;

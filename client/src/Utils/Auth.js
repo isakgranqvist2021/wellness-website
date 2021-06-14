@@ -1,7 +1,15 @@
 import JWT from 'jwt-client';
+import authStore from '../Store/auth.store';
 
 function isLoggedIn() {
-    return JWT.validate(getToken());
+    let OK = JWT.validate(getToken());
+
+    if (!OK) {
+        localStorage.removeItem('session');
+        return false;
+    }
+
+    return true;
 }
 
 function setToken(token) {

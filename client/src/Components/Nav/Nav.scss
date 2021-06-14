@@ -10,7 +10,7 @@ $navWidth: 300px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     overflow: hidden;
     transition: all 315ms ease;
-    z-index: 2;
+    z-index: 3;
 
     &.open {
         width: 300px;
@@ -51,28 +51,17 @@ $navWidth: 300px;
                 border-radius: .72rem;
                 color: rgb(58, 58, 58);
                 text-decoration: none;
+                border: none;
+                background-color: rgba(255, 255, 255, 0);
+                text-align: left;
+                font-size: 1rem;
+                cursor: pointer;
 
                 &:hover {
                     color:rgb(180, 180, 180);
                 }
             }
 
-            button {
-                border: none;
-                background-color: rgb(187, 24, 12);
-                color: #fff;
-                position: absolute;
-                cursor: pointer;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: calc(300px * .75);
-
-                &:hover {
-                    background-color: rgb(230, 57, 45);
-                    color: #fff;
-                }
-            }
         }
     }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 function Content(props) {
     return (
-        <div>
+        <div className="container">
             <h1>Content</h1>
         </div>
     )
