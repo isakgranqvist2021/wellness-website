@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DashboardNav from '../DashboardNav/DashboardNav';
 import HTTP from '../../../../Utils/HTTP';
 import Service from './Service';
@@ -8,13 +8,23 @@ import './Services.scss';
 function Services(props) {
     const [services, setServices] = React.useState([]);
 
-    (async () => {
-        const response = await HTTP.GET('/api/get-services');
+    useEffect(() => {
+        const abort = new AbortController();
 
-        if (response.success) {
-            setServices(response.data);
-        }
-    })();
+        (async () => {
+            try {
+                const response = await HTTP.GET('/api/get-services', abort.signal);
+
+                if (response.success) {
+                    setServices(response.data);
+                }
+            } catch (err) {
+                console.log('it was aborted')
+            }
+        })(abort)
+
+        return () => abort.abort();
+    });
 
     return (
         <div className="manage-services container">

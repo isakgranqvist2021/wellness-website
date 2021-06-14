@@ -7,11 +7,12 @@ function headers() {
     }
 }
 
-async function GET(url) {
+async function GET(url, signal) {
     try {
         const response = await fetch(serverAddr + url, {
             method: 'GET',
-            headers: headers()
+            headers: headers(),
+            signal: signal
         });
 
         return await response.json();
@@ -20,13 +21,14 @@ async function GET(url) {
     }
 }
 
-async function POST(url, body) {
+async function POST(url, body, signal) {
     console.log(headers());
 
     try {
         const response = await fetch(serverAddr + url, {
             method: 'POST',
             body: body,
+            signal: signal,
             headers: headers()
         });
 

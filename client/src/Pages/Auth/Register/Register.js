@@ -26,7 +26,7 @@ function Register(props) {
             }))
         }
         return () => {
-            if (vantaEffect) vantaEffect.destroy()
+            if (vantaEffect) vantaEffect.destroy();
         }
     }, [vantaEffect])
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import DashboardNav from '../DashboardNav/DashboardNav';
 import HTTP from '../../../../Utils/HTTP';
 import './AddService.scss';
@@ -12,26 +12,11 @@ function AddServiceForm() {
     const [startTime, setStartTime] = React.useState('');
     const [endTime, setEndTime] = React.useState('');
     const [price, setPrice] = React.useState(1);
-
-
     const [user, setUser] = React.useState({ name: '' });
 
     userStore.subscribe(() => {
         setUser(userStore.getState().user);
     });
-
-    //componentDidMount
-    useEffect(() => {
-        window.addEventListener("load", pageLoad);
-
-        return () => {
-            window.removeEventListener("load", pageLoad);
-        }
-    });
-
-    const pageLoad = () => {
-        console.log('Unmounting')
-    }
 
     const submit = async () => {
         const response = await HTTP.POST('/api/create-service', JSON.stringify({
