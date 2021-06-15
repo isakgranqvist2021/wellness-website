@@ -34,18 +34,20 @@ function Register(props) {
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [key, setKey] = React.useState('');
 
     const submit = async () => {
         try {
             const response = await HTTP.POST('/register', JSON.stringify({
                 name: name,
                 email: email,
-                password: password
+                password: password,
+                key: key
             }));
 
             if (response.success) {
                 if (auth.setToken(response.data)) {
-                    history.push('/dashboard');
+                    history.push('/dashboard/manage-services');
                     authStore.dispatch({ type: 'login' });
                 }
             }
@@ -77,6 +79,10 @@ function Register(props) {
                     <section className="form-group">
                         <label>Password</label>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </section>
+                    <section className="form-group">
+                        <label>Key</label>
+                        <input type="text" value={key} onChange={(e) => setKey(e.target.value)} />
                     </section>
                     <button type="button" onClick={submit}>Create Account</button>
                     <Link to="/login">Already have an account?</Link>

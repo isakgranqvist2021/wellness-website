@@ -60,7 +60,7 @@ function Nav(props) {
                         </div>
                     ) : (
                         <div>
-                            <Link to="/dashboard" onClick={closeNav}>Dashboard</Link>
+                            <Link to="/dashboard/manage-services" onClick={closeNav}>Dashboard</Link>
                             <button onClick={logout}>Logout</button>
                         </div>
                     )}

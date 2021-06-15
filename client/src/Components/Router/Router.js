@@ -18,15 +18,14 @@ import Contact from '../../Pages/Contact';
 import OpeningTimes from '../../Pages/OpeningTimes';
 import Login from '../../Pages/Auth/Login/Login';
 import Register from '../../Pages/Auth/Register/Register';
-import Dashboard from '../../Pages/Auth/Dashboard/Dashboard';
 import LightTherapy from '../../Pages/LightTherapy';
 import EmsTraining from '../../Pages/EmsTraining';
 import AbdominalTraining from '../../Pages/AbdominalTraining';
 import Content from '../../Pages/Auth/Dashboard/Content/Content';
 import Images from '../../Pages/Auth/Dashboard/Images/Images';
 import Requests from '../../Pages/Auth/Dashboard/Requests/Requests';
-import Services from '../../Pages/Auth/Dashboard/Services/Services';
-import AddService from '../../Pages/Auth/Dashboard/AddService/AddService';
+import Templates from '../../Pages/Auth/Dashboard/Services/Templates';
+import AddTemplate from '../../Pages/Auth/Dashboard/AddTemplate/AddTemplate';
 
 function Loading(props) {
     return (
@@ -67,7 +66,7 @@ function Router(props) {
             if (!auth.isLoggedIn()) {
                 next();
             }
-            next.redirect('/dashboard');
+            next.redirect('/dashboard/manage-services');
         }
     };
 
@@ -94,12 +93,11 @@ function Router(props) {
                     <GuardedRoute path="/login" component={Login} meta={{ auth: false }} exact />
                     <GuardedRoute path="/register" component={Register} meta={{ auth: false }} exact />
 
-                    <GuardedRoute path="/dashboard" component={Dashboard} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/manage-content" component={Content} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/manage-images" component={Images} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/manage-requests" component={Requests} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/manage-services" component={Services} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/add-service" component={AddService} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-services" component={Templates} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/add-template" component={AddTemplate} meta={{ auth: true }} exact />
                 </Switch>
             </GuardProvider>
 

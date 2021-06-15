@@ -1,11 +1,9 @@
 import serviceModel from "../../models/service.model";
 
 async function createService(req, res) {
-    if (!req.body.serviceName) return res.json({ message: 'missing service name', success: false, data: null });
     if (!req.body.date) return res.json({ message: 'please pick a date for your service', success: false, data: null });
     if (!req.body.startTime) return res.json({ message: 'please pick a start time', success: false, data: null });
     if (!req.body.endTime) return res.json({ message: 'please pick an end time', success: false, data: null });
-    if (!req.body.price) return res.json({ message: 'please include a price', success: false, data: null });
 
     req.body.instructor = req.user._id;
 
@@ -42,17 +40,38 @@ async function readService(req, res) {
     }
 }
 
+async function findServicesByTemp(req, res) {
+    try {
+        const services = await serviceModel.findServicesByTemp(req.params.tid);
+        return res.json({
+            message: '', success: true, data: services
+        });
+    } catch (err) {
+        return res.json({
+            message: 'server error',
+            success: false,
+            data: null
+        });
+    }
+}
+
 async function updateService(req, res) {
 
 }
 
 async function deleteService(req, res) {
-
+    try {
+        await serviceModel.deleteService(req.params.sid);
+        return res.json({ message: 'service deleted', success: true, data: null });
+    } catch (err) {
+        return res.json({ message: 'unable to remove service', success: false, data: null });
+    }
 }
 
 export default {
     createService,
     readService,
     updateService,
-    deleteService
+    deleteService,
+    findServicesByTemp
 };

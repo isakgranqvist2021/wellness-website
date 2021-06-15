@@ -1,0 +1,97 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 300ms linear;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.37);
+
+
+    .modal-content {
+        background-color: #fff;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        border-radius: .5rem;
+        padding: 2rem 4rem;
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 3.6rem;
+            position: relative;
+            display: block;
+    
+            &::after {
+                content: '';
+                position: absolute;
+                width: 40%;
+                top: 100%;
+                right: 0;
+                margin: 5px 0 0 0;
+                height: 4px;
+                background-color: rgb(10, 77, 201);
+            }
+        }
+
+        section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1.6rem 0;
+    
+            label {
+                display: block;
+                width: 25%;
+                margin-right: 1rem;
+            }
+    
+            input:not([type=checkbox]) {
+                display: block;
+                padding: .5rem;
+                flex-grow: 1;
+                outline: none;
+                border: 1px solid lightgray;
+    
+                &:focus {
+                    border-color: lightblue;
+                }
+            }
+        }
+    
+        button {
+            display: block;
+            margin: 0 0 0 auto;
+            padding: .85rem 1.5rem;
+            border: none;
+            border-radius: .6rem;
+            background-color: rgb(7, 56, 192);
+            color: #fff;
+            cursor: pointer;
+    
+            &:hover {
+                background-color: rgb(11, 66, 216);
+            }
+        }
+    }
+
+    &.open {
+        opacity: 1;
+        pointer-events: auto;
+
+    }
+
+    &.closed {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+
+}

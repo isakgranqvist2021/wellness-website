@@ -22,8 +22,6 @@ async function GET(url, signal) {
 }
 
 async function POST(url, body, signal) {
-    console.log(headers());
-
     try {
         const response = await fetch(serverAddr + url, {
             method: 'POST',
@@ -42,8 +40,18 @@ async function PUT() {
 
 }
 
-async function DELETE() {
+async function DELETE(url, signal) {
+    try {
+        const response = await fetch(serverAddr + url, {
+            method: 'DELETE',
+            signal: signal,
+            headers: headers()
+        });
 
+        return await response.json();
+    } catch (err) {
+        return Promise.reject(err);
+    }
 }
 
 const exports = {

@@ -2,9 +2,8 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const serviceSchema = new Schema({
-    serviceName: { type: String, required: true },
+    template: { type: Schema.Types.ObjectId, ref: 'Template' },
     instructor: { type: Schema.Types.ObjectId, ref: 'User' },
-    active: { type: Boolean, default: true },
     createdAt: { type: Date, default: Date.now() },
     updatedAt: { type: Date, default: Date.now() },
     startTime: { type: String, required: true },
@@ -18,7 +17,9 @@ const ServiceModel = mongoose.model('Service', serviceSchema);
 
 async function createService(data) {
     try {
-        return await new ServiceModel(data).save();
+        const newService = await new ServiceModel(data).save();
+        return await findServiceById(newService._id);
+
     } catch (err) {
         return Promise.reject(err);
     }
@@ -32,4 +33,41 @@ async function getServices() {
     }
 }
 
-export default { createService, getServices };
+async function findServiceById(id) {
+    try {
+        return await ServiceModel.findOne({ _id: id }).populate({
+            path: 'instructor',
+            model: 'User',
+            select: {
+                password: 0
+            }
+        });
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
+
+async function findServicesByTemp(tid) {
+    try {
+        return await ServiceModel.find({ template: tid }).populate({
+            path: 'instructor',
+            model: 'User',
+            select: {
+                password: 0
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        return Promise.reject(err);
+    }
+}
+
+async function deleteService(sid) {
+    try {
+        return await ServiceModel.findOneAndDelete(sid);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
+
+export default { createService, getServices, findServicesByTemp, deleteService };

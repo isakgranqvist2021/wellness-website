@@ -9,7 +9,6 @@ function App() {
     if (response.success) {
       userStore.dispatch({ type: 'set', data: response.data });
     }
-
   })();
 
   return (

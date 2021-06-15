@@ -1,0 +1,42 @@
+.Booking-Window {
+    form {
+        width: 75%;
+        margin: 0 auto;
+        section {
+            margin: 1.5rem 0;
+
+            label {
+                width: 100%;
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            input {
+                width: 100%;
+                padding: .66rem;
+                border: 1px solid lightgray;
+                border-radius: .5rem;
+                outline: none;
+
+                &:focus {
+                    border-color: rgb(6, 57, 221);
+                }
+            }
+        }
+ 
+        button {
+            padding: 1rem 2rem;
+            margin: 0 0 0 auto;
+            display: block;
+            border: none; 
+            border-radius: .66rem;
+            background-color: rgb(14, 151, 21);
+            color: #fff;
+            cursor: pointer;
+            
+            &:hover {
+                background-color: rgb(18, 177, 26);
+            }
+        }
+    }
+}

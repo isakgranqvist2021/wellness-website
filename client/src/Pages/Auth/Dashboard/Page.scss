@@ -1,0 +1,17 @@
+.Dashboard-Page {
+    h1 {
+        padding: 2rem 0;
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        color: rgb(78, 78, 78);
+    }
+}
+
+@media only screen and(max-width: 1200px) {
+    .Dashboard-Page {
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+        }
+    }
+}

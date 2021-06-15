@@ -1,38 +1,31 @@
 import React from 'react';
 import DashboardNav from '../DashboardNav/DashboardNav';
 import HTTP from '../../../../Utils/HTTP';
-import './AddService.scss';
+import './AddTemplate.scss';
 import userStore from '../../../../Store/user.store';
 import alertsStore from '../../../../Store/alerts.store';
+import '../Page.scss';
 
-function AddServiceForm() {
+function AddTemplate(props) {
     const [serviceName, setServiceName] = React.useState('');
     const [active, setActive] = React.useState(false);
-    const [date, setDate] = React.useState(new Date());
-    const [startTime, setStartTime] = React.useState('');
-    const [endTime, setEndTime] = React.useState('');
     const [price, setPrice] = React.useState(1);
-    const [user, setUser] = React.useState({ name: '' });
+    const [user, setUser] = React.useState({ name: 'Your Name' });
 
     userStore.subscribe(() => {
         setUser(userStore.getState().user);
     });
 
     const submit = async () => {
-        const response = await HTTP.POST('/api/create-service', JSON.stringify({
+        const response = await HTTP.POST('/api/create-template', JSON.stringify({
             serviceName: serviceName,
-            date: date,
-            startTime: startTime,
-            endTime: endTime,
             price: price,
             active: active
         }));
 
         if (response.success) {
+            setServiceName('');
             setActive(false);
-            setDate(Date.now());
-            setStartTime('');
-            setEndTime('');
             setPrice(1);
         }
 
@@ -45,10 +38,11 @@ function AddServiceForm() {
     }
 
     return (
-        <div className="container">
+        <div className="Dashboard-Page container addTemplate">
             <DashboardNav />
-            <form className="addService-form">
-                <h2>Add Service</h2>
+            <h1>Add Template</h1>
+
+            <form className="AddTemplate-form">
                 <section>
                     <label>Instructor</label>
                     <input type="text" value={user.name} disabled />
@@ -56,18 +50,6 @@ function AddServiceForm() {
                 <section>
                     <label htmlFor="serviceName">Service Name</label>
                     <input type="text" id="serviceName" value={serviceName} onChange={(e) => setServiceName(e.target.value)} />
-                </section>
-                <section>
-                    <label htmlFor="date">Date</label>
-                    <input type="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} />
-                </section>
-                <section>
-                    <label htmlFor="startTime">Start Time</label>
-                    <input type="time" id="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
-                </section>
-                <section>
-                    <label htmlFor="endTime">End Time</label>
-                    <input type="time" id="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
                 </section>
                 <section>
                     <label htmlFor="price">Price</label>
@@ -83,4 +65,4 @@ function AddServiceForm() {
     );
 }
 
-export default AddServiceForm;
+export default AddTemplate;

@@ -1,0 +1,54 @@
+.react-calendar {
+    width: auto;
+    border: 1px solid rgb(224, 224, 224);
+    border-radius: .7rem;
+
+}
+
+.showAllTimes {
+    margin: 1rem auto;
+    display: block;
+    background-color: rgb(12, 98, 168);
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    padding: 6px 10px;
+    border-radius: .25rem;
+    
+    &:hover {
+        background-color: rgb(10, 78, 156);
+    }
+}
+
+.available-date {
+    border: 1px solid lightgray;
+    padding: 1rem;
+    border-radius: .7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+
+    &:hover {
+        border-color: #0c55c4;
+        background-color: #fafafa;
+        cursor: pointer;
+    }
+
+    span {
+        font-size: .8rem;
+        color:rgb(12, 85, 196);
+
+        &:not(:last-of-type) {
+            &::after {
+                content: '-';
+                display: inline-block;
+                margin: 0 .5rem;
+            } 
+        }
+    } 
+
+    &:not(:first-of-type) {
+        margin-top: 1rem;
+    }
+}
