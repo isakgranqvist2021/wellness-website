@@ -1,0 +1,64 @@
+.page-setting {
+    margin: 1rem 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    padding: 2.5rem;
+
+    h3 {
+        font-size: 2.75rem;
+        text-transform: capitalize;
+        color: rgb(77, 77, 77);
+    }
+
+    form {
+        .form-container {
+            margin: 1.5rem 0;
+
+            .form-group {
+                display: flex;
+                
+                section {
+                    display: inherit;
+                    flex-direction: column;
+                    width: auto;
+
+                    &.text {
+                        width: 75%;
+                    }
+
+                    label {
+                        display: block;
+                        margin-bottom: 8px;
+                        text-transform: capitalize;
+                    }
+
+                    &:not(:last-of-type) {
+                        margin-right: 1rem;
+                    }
+
+                    input[type=text] {
+                        width: 100%;
+                        padding: .6rem;
+                        border: 1px solid lightgray;
+                        outline: none;
+                    }
+                }
+            }
+        }
+
+        button {
+            display: block;
+            margin: 0 0 0 auto;
+            padding: .6rem;
+            background-color: #0c55c4;
+            width: 10rem;
+            border: none;
+            color: #fff;
+            border-radius: .6rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #1262da;
+            }
+        }
+    }
+}

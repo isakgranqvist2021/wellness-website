@@ -14,6 +14,7 @@ import index from './routers/index';
 import api from './routers/api';
 import stream from './routers/stream';
 
+app.use('/uploads', express.static('./uploads'));
 app.use(cors());
 app.use(express.json());
 app.use('/', index);

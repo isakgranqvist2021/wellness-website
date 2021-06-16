@@ -69,7 +69,8 @@ const exports = {
     GET,
     POST,
     PUT,
-    DELETE
+    DELETE,
+    serverAddr
 };
 
 export default exports;

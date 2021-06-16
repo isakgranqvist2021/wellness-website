@@ -8,6 +8,8 @@ import {
     Switch
 } from "react-router-dom";
 
+import pageStore from '../../Store/page.store';
+
 import Nav from '../Nav/Nav';
 import Alerts from '../Alerts/Alerts';
 import Booking from '../Booking/Booking';
@@ -41,6 +43,7 @@ function NotFound(props) {
 }
 
 function Router(props) {
+    const [pageSettings, setPageSettings] = React.useState({});
     const [open, setOpen] = React.useState(false);
     navStore.subscribe(() => setOpen(navStore.getState().open));
 
@@ -71,6 +74,11 @@ function Router(props) {
         }
     };
 
+    pageStore.subscribe(() => {
+        console.log(pageStore.getState());
+        setPageSettings(pageStore.getState().data);
+    });
+
     return (
         <BrowserRouter>
             <Nav open={open}></Nav>
@@ -82,25 +90,68 @@ function Router(props) {
             <div className={`filler ${open ? 'open' : 'closed'}`}></div>
             <GuardProvider guards={[requireLogin]} loading={Loading} error={NotFound}>
                 <Switch>
-                    <GuardedRoute path="/" component={Home} exact />
-                    <GuardedRoute path="/pricing" component={Pricing} exact />
-                    <GuardedRoute path="/about" component={About} exact />
-                    <GuardedRoute path="/opening-times" component={OpeningTimes} exact />
-                    <GuardedRoute path="/contact" component={Contact} exact />
-                    <GuardedRoute path="/ems-training" component={EmsTraining} exact />
-                    <GuardedRoute path="/light-therapy" component={LightTherapy} exact />
-                    <GuardedRoute path="/abdominal-training" component={AbdominalTraining} exact />
-                    <GuardedRoute path="/confirm-booking/:confirmKey" component={ConfirmBooking} exact />
+                    <GuardedRoute path="/" exact>
+                        <Home pageSettings={pageSettings.home} />
+                    </GuardedRoute>
 
-                    <GuardedRoute path="/login" component={Login} meta={{ auth: false }} exact />
-                    <GuardedRoute path="/register" component={Register} meta={{ auth: false }} exact />
+                    <GuardedRoute path="/pricing" exact >
+                        <Pricing pageSettings={pageSettings.pricing} />
+                    </GuardedRoute>
 
-                    <GuardedRoute path="/dashboard/manage-content" component={Content} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/manage-images" component={Images} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/manage-requests" component={Requests} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/manage-services" component={Templates} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/add-template" component={AddTemplate} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/about" exact >
+                        <About pageSettings={pageSettings.about} />
+                    </GuardedRoute>
 
+                    <GuardedRoute path="/opening-times" exact >
+                        <OpeningTimes pageSettings={pageSettings.openingTimes} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/contact" exact >
+                        <Contact pageSettings={pageSettings.contact} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/ems-training" exact >
+                        <EmsTraining pageSettings={pageSettings.emsTraining} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/light-therapy" exact >
+                        <LightTherapy pageSettings={pageSettings.lightTherapy} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/abdominal-training" exact >
+                        <AbdominalTraining pageSettings={pageSettings.abdonimalTraining} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/confirm-booking/:confirmKey" exact >
+                        <ConfirmBooking pageSettings={pageSettings.confirmBooking} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/login" meta={{ auth: false }} exact >
+                        <Login pageSettings={pageSettings.login} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/register" meta={{ auth: false }} exact >
+                        <Register pageSettings={pageSettings.register} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/dashboard/manage-content" meta={{ auth: true }} exact >
+                        <Content pageSettings={pageSettings} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/dashboard/manage-images" meta={{ auth: true }} exact >
+                        <Images pageSettings={pageSettings.manageImages} />
+                    </GuardedRoute>
+                    <GuardedRoute path="/dashboard/manage-requests" meta={{ auth: true }} exact >
+                        <Requests pageSettings={pageSettings.manageRequests} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/dashboard/manage-services" meta={{ auth: true }} exact>
+                        <Templates pageSettings={pageSettings.manageServices} />
+                    </GuardedRoute>
+
+                    <GuardedRoute path="/dashboard/add-template" meta={{ auth: true }} exact >
+                        <AddTemplate pageSettings={pageSettings.addTemplate} />
+                    </GuardedRoute>
                 </Switch>
             </GuardProvider>
 
