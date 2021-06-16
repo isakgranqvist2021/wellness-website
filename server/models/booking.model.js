@@ -7,6 +7,8 @@ const bookingSchema = new Schema({
     createdAt: { type: Date, default: Date.now() },
     updatedAt: { type: Date, default: Date.now() },
     approved: { type: Boolean, default: false },
+    confirmed: { type: Boolean, default: false },
+    confirmKey: { type: String, required: true },
     bookingId: { type: String, required: true },
     name: { type: String, required: true },
     phone: { type: String, required: true },
@@ -28,6 +30,7 @@ const BookingModel = mongoose.model('Booking', bookingSchema);
 
 async function createBooking(data) {
     data.bookingId = newBookingId();
+    data.confirmKey = newBookingId(100);
 
     try {
         return await new BookingModel(data).save();
@@ -36,6 +39,43 @@ async function createBooking(data) {
     }
 }
 
+async function findBookings() {
+    try {
+        return await BookingModel.find({ confirmed: true }).populate([
+            { path: 'template', model: 'Template' },
+            { path: 'service', model: 'Service' }
+        ]);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
+
+async function approveBooking(id, newState) {
+    try {
+        const booking = await BookingModel.findOne({ _id: id });
+        booking.approved = newState;
+
+        await booking.save();
+
+        return Promise.resolve({
+            message: booking.approved ? 'booking approved' : 'booking rejected',
+            email: booking.email
+        });
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
+
+async function confirmBooking(confirmKey) {
+    try {
+        const booking = await BookingModel.findOne({ confirmKey: confirmKey });
+        booking.confirmed = true;
+        return await booking.save();
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
 
 
-export default { createBooking };
+
+export default { createBooking, confirmBooking, approveBooking, findBookings };

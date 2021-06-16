@@ -30,5 +30,14 @@ async function deleteTemplate(req, res) {
     }
 }
 
+async function updateTemplate(req, res) {
+    try {
+        const result = await templateModel.updateTemplate(req.params.tid, req.body);
+        return res.json({ message: `template has been ${result.active ? 'activated' : 'paused'}`, success: true, data: result });
+    } catch (err) {
+        return res.json({ message: 'unable to update template', success: false, data: null });
+    }
+}
 
-export default { createTemplate, findTemplates, deleteTemplate };
+
+export default { createTemplate, findTemplates, deleteTemplate, updateTemplate };

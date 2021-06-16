@@ -26,6 +26,7 @@ import Images from '../../Pages/Auth/Dashboard/Images/Images';
 import Requests from '../../Pages/Auth/Dashboard/Requests/Requests';
 import Templates from '../../Pages/Auth/Dashboard/Services/Templates';
 import AddTemplate from '../../Pages/Auth/Dashboard/AddTemplate/AddTemplate';
+import ConfirmBooking from '../../Pages/ConfirmBooking/ConfirmBooking';
 
 function Loading(props) {
     return (
@@ -89,6 +90,7 @@ function Router(props) {
                     <GuardedRoute path="/ems-training" component={EmsTraining} exact />
                     <GuardedRoute path="/light-therapy" component={LightTherapy} exact />
                     <GuardedRoute path="/abdominal-training" component={AbdominalTraining} exact />
+                    <GuardedRoute path="/confirm-booking/:confirmKey" component={ConfirmBooking} exact />
 
                     <GuardedRoute path="/login" component={Login} meta={{ auth: false }} exact />
                     <GuardedRoute path="/register" component={Register} meta={{ auth: false }} exact />
@@ -98,6 +100,7 @@ function Router(props) {
                     <GuardedRoute path="/dashboard/manage-requests" component={Requests} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/manage-services" component={Templates} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/add-template" component={AddTemplate} meta={{ auth: true }} exact />
+
                 </Switch>
             </GuardProvider>
 

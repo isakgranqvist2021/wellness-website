@@ -1,0 +1,13 @@
+<div class="email" style="max-width: 600px;background-color: rgb(255, 255, 255);margin: 0 auto;border: 1px solid lightgray;font-family: Arial, Helvetica, sans-serif;">
+    <img src="<%= content.src %>" style="width: 100%;">
+    <div class="email-body" style="padding: 2rem;">
+        <h1 style="margin: 0;text-transform: capitalize;font-size: 2rem;"><%= content.header %></h1>
+        <p><%= content.body %></p>
+        
+        <% if(href) { %>
+            <a href="<%= href %>" class="btn" style="background-color: rgb(30, 118, 190);padding: .7rem;text-decoration: none;color: #fff;margin: 2rem 0;display: block;max-width: 10rem;text-align: center;text-transform: capitalize;">Confirm my booking</a>
+        <% } %>
+
+        <p><a href="<%= origin %>"><%= origin %></a></p>
+    </div>
+</div>

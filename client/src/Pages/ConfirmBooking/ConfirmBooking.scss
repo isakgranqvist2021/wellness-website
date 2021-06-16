@@ -1,0 +1,26 @@
+.bookingConfirmation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    .bookingConfirmation-content {
+        padding: 3rem;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        font-size: .75rem;
+
+        .gr {
+            color: green;
+        }
+
+        .re {
+            color: crimson;
+        }
+
+        p {
+            text-align: center;
+            margin: 2rem 0 0 0;
+            font-size: 1.7rem;
+        }
+    }
+}

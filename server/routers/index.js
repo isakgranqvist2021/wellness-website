@@ -14,6 +14,7 @@ router.post('/register', registerController);
 router.post('/login', loginController);
 router.get('/get-templates', templateController.findTemplates);
 router.get('/find-services/:tid', serviceController.findServicesByTemp);
-router.post('/create-booking', bookingController.createBooking)
+router.post('/create-booking', bookingController.createBooking);
+router.get('/confirm-booking/:confirmKey', bookingController.confirmBooking);
 
 export default router;

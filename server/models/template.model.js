@@ -34,4 +34,12 @@ async function deleteTemplate(tid) {
     }
 }
 
-export default { createTemplate, findTemplates, deleteTemplate };
+async function updateTemplate(tid, update) {
+    try {
+        return await TemplateModel.findOneAndUpdate(tid, update);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
+
+export default { createTemplate, findTemplates, deleteTemplate, updateTemplate };

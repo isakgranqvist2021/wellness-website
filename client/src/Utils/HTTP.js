@@ -36,8 +36,19 @@ async function POST(url, body, signal) {
     }
 }
 
-async function PUT() {
+async function PUT(url, body, signal) {
+    try {
+        const response = await fetch(serverAddr + url, {
+            method: 'PUT',
+            body: body,
+            signal: signal,
+            headers: headers()
+        });
 
+        return await response.json();
+    } catch (err) {
+        return Promise.reject(err);
+    }
 }
 
 async function DELETE(url, signal) {

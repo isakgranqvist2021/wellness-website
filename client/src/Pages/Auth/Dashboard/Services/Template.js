@@ -39,6 +39,8 @@ function Service(props) {
 function Template(props) {
     const [modalOpen, setModalOpen] = React.useState(false);
     const [services, setServices] = React.useState([]);
+    const [active, setActive] = React.useState(props.active);
+
     const toggleModal = () => setModalOpen(modalOpen ? false : true);
     const addService = (data) => setServices([...services, data]);
     const onDeleteService = (id) => setServices(services.filter(s => s._id !== id));
@@ -56,6 +58,20 @@ function Template(props) {
     }, [props._id])
 
 
+    const updateTemplate = async () => {
+        setActive(!active ? true : false);
+        const response = await HTTP.PUT('/api/update-template/' + props._id, JSON.stringify({
+            active: active
+        }));
+
+        alertsStore.dispatch({
+            type: 'set', newState: {
+                text: response.message,
+                error: !response.success
+            }
+        });
+    }
+
     return (
         <div className="template">
             <h3>{props.serviceName}</h3>
@@ -66,7 +82,10 @@ function Template(props) {
 
             <div className="actions">
                 <button onClick={toggleModal}><span className="material-icons">add</span></button>
-                <button><span className="material-icons">edit</span></button>
+                <button onClick={updateTemplate}>
+                    {active && <span className="material-icons">pause</span>}
+                    {!active && <span className="material-icons">play_arrow</span>}
+                </button>
                 <button className="danger" onClick={onDeleteTemplate}><span className="material-icons">delete</span></button>
             </div>
 
