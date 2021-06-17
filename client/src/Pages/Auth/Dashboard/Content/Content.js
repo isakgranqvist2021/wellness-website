@@ -1,33 +1,18 @@
 import React from 'react';
 import DashboardNav from '../DashboardNav/DashboardNav';
+import HTTP from '../../../../Utils/HTTP';
+import alertsStore from '../../../../Store/alerts.store';
 import '../Page.scss';
 import './Content.scss';
 
 function TextInput(props) {
-    let bgInitalColor = '#333';
-
-    if (props.backgroundColor !== undefined) {
-        bgInitalColor = props.backgroundColor.value;
-    }
-
     const [text, setText] = React.useState(props.text.value);
-    const [color, setColor] = React.useState(props.color.value);
-    const [backgroundColor, setBackgroundColor] = React.useState(bgInitalColor);
 
     const setTextProp = (val) => {
         setText(val);
         props.updateSetting({ part: props.label, prop: 'text', val: val });
     }
 
-    const setColorProp = (val) => {
-        setColor(val);
-        props.updateSetting({ part: props.label, prop: 'color', val: val });
-    }
-
-    const setBgProp = (val) => {
-        setBackgroundColor(val);
-        props.updateSetting({ part: props.label, prop: 'backgroundColor', val: val });
-    }
 
     return (
         <div className="form-group">
@@ -35,14 +20,6 @@ function TextInput(props) {
                 <label>{props.label} Text</label>
                 <input type={props.text.inputType} value={text} onChange={(e) => setTextProp(e.target.value)} />
             </section>
-            <section>
-                <label>{props.label} Color</label>
-                <input type={props.color.inputType} value={color} onChange={(e) => setColorProp(e.target.value)} />
-            </section>
-            {props.backgroundColor !== undefined && <section>
-                <label>{props.label} Background Color</label>
-                <input type={props.backgroundColor.inputType} value={backgroundColor} onChange={(e) => setBgProp(e.target.value)} />
-            </section>}
         </div>
     )
 }
@@ -86,8 +63,15 @@ function PageSetting(props) {
         setPageSetting(newState);
     }
 
-    const save = () => {
-        console.log(pageSetting);
+    const save = async () => {
+        const response = await HTTP.PUT('/api/update-page-settings', JSON.stringify(pageSetting));
+
+        alertsStore.dispatch({
+            type: 'set', newState: {
+                text: response.message,
+                error: !response.success
+            }
+        });
     }
 
     return (
@@ -101,7 +85,7 @@ function PageSetting(props) {
                                 <TextInput {...prop} updateSetting={updateSetting} />
                             </div>
                         )
-                    } else if (prop.type === 'img') {
+                    } else if (prop.type === 'image') {
                         return (
                             <div key={'fi-' + i} className="form-container">
                                 <FileInput {...prop} updateSetting={updateSetting} />

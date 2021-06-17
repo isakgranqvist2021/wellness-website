@@ -82,7 +82,7 @@ function Router(props) {
     return (
         <BrowserRouter>
             <Nav open={open}></Nav>
-            <Booking></Booking>
+            <Booking pageSettings={pageSettings.bookingWindow}></Booking>
             <div onClick={toggle} className={`toggle-nav ${open ? 'open' : 'closed'}`}>
                 {!open ? <span className="material-icons">menu</span> : <span className="material-icons">close</span>}
             </div>
