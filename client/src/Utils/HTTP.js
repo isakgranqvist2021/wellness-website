@@ -42,13 +42,13 @@ async function POST(url, body, signal) {
     }
 }
 
-async function PUT(url, body, signal, useContentType) {
+async function PUT(url, body, signal, excludeContentType) {
     try {
         const response = await fetch(serverAddr + url, {
             method: 'PUT',
             body: body,
             signal: signal,
-            headers: headers(useContentType)
+            headers: headers(excludeContentType)
         });
 
         return await response.json();

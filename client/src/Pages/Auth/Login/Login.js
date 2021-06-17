@@ -43,7 +43,7 @@ function Login(props) {
 
             if (response.success) {
                 if (auth.setToken(response.data)) {
-                    history.push('/dashboard/manage-services');
+                    history.push('/dashboard/manage-requests');
                     authStore.dispatch({ type: 'login' });
                 }
             }

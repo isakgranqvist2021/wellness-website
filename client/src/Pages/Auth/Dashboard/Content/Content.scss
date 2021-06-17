@@ -1,0 +1,36 @@
+.form-container {
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+    padding: 2rem;
+    
+    &:not(:last-of-type) {
+        margin-bottom: 2rem;
+    }
+
+    h3 {
+        font-size: 2rem;
+        text-transform: capitalize;
+    }
+
+    .form-group {
+        margin: 1.6rem 0;
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
+
+        input {
+            padding: .6rem;
+            width: 100%;
+            border: 1px solid lightgray;
+        }
+    }
+
+    
+    button {
+        display: block;
+        margin: 0 0 0 auto;
+        padding: .6rem;
+    }
+}

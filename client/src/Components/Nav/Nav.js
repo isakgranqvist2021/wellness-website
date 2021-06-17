@@ -73,7 +73,7 @@ function Nav(props) {
                         (
                             <div>
                                 <h3>Administration</h3>
-                                <Link to="/dashboard/manage-services">Dashboard</Link>
+                                <Link to="/dashboard/manage-requests">Dashboard</Link>
                                 <button onClick={logout}>Logout</button>
                             </div>
                         )}

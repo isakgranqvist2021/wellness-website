@@ -9,7 +9,7 @@ import pageContentModel from './models/pageContent.model';
 const app = express();
 const server = http.createServer(app);
 
-if (true) {
+if (false) {
     (async () => {
         try {
             await pageContentModel.dropCollection();

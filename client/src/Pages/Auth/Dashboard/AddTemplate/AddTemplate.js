@@ -1,5 +1,4 @@
 import React from 'react';
-import DashboardNav from '../DashboardNav/DashboardNav';
 import HTTP from '../../../../Utils/HTTP';
 import './AddTemplate.scss';
 import userStore from '../../../../Store/user.store';
@@ -38,8 +37,7 @@ function AddTemplate(props) {
     }
 
     return (
-        <div className="Dashboard-Page container addTemplate">
-            <DashboardNav />
+        <div>
             <h1>Add Template</h1>
 
             <form className="AddTemplate-form">

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import DashboardNav from '../DashboardNav/DashboardNav';
 import HTTP from '../../../../Utils/HTTP';
 import Template from './Template';
 import alertsStore from '../../../../Store/alerts.store';
@@ -36,8 +35,7 @@ function Templates(props) {
     }, []);
 
     return (
-        <div className="Dashboard-Page manage-services container">
-            <DashboardNav />
+        <div className="manage-services">
             <h1>Manage Services</h1>
             <div className="active-services">
                 {templates.map(template => <Template key={template._id} {...template} onDeleteTemplate={onDeleteTemplate} />)}

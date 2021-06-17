@@ -19,9 +19,11 @@ import EmsTraining from '../../Pages/EmsTraining';
 import AbdominalTraining from '../../Pages/AbdominalTraining';
 import Images from '../../Pages/Auth/Dashboard/Images/Images';
 import Requests from '../../Pages/Auth/Dashboard/Requests/Requests';
-import Templates from '../../Pages/Auth/Dashboard/Services/Templates';
+import Templates from '../../Pages/Auth/Dashboard/Templates/Templates';
 import AddTemplate from '../../Pages/Auth/Dashboard/AddTemplate/AddTemplate';
 import ConfirmBooking from '../../Pages/ConfirmBooking/ConfirmBooking';
+import Content from '../../Pages/Auth/Dashboard/Content/Content';
+import DashboardNav from '../../Pages/Auth/Dashboard/DashboardNav/DashboardNav';
 
 function Loading(props) {
     return (
@@ -32,6 +34,43 @@ function Loading(props) {
 function NotFound(props) {
     return (
         <div>Not found...</div>
+    );
+}
+
+function DashboardRouter(props) {
+    return (
+        <div>
+            <DashboardNav />
+            <div className="Dashboard-Page container">
+                <Switch>
+                    <GuardedRoute path="/dashboard/manage-images" component={Images} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-requests" component={Requests} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-templates" component={Templates} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/add-template" component={AddTemplate} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/content" component={Content} meta={{ auth: true }} exact />
+                </Switch>
+            </div>
+        </div>
+    );
+}
+
+function HomeRouter(props) {
+    return (
+        <div>
+            <Switch>
+                <GuardedRoute path="/" component={Home} exact />
+                <GuardedRoute path="/pricing" component={Pricing} exact />
+                <GuardedRoute path="/about" component={About} exact />
+                <GuardedRoute path="/opening-times" component={OpeningTimes} exact />
+                <GuardedRoute path="/contact" component={Contact} exact />
+                <GuardedRoute path="/ems-training" component={EmsTraining} exact />
+                <GuardedRoute path="/light-therapy" component={LightTherapy} exact />
+                <GuardedRoute path="/abdominal-training" component={AbdominalTraining} exact />
+                <GuardedRoute path="/confirm-booking/:confirmKey" component={ConfirmBooking} exact />
+                <GuardedRoute path="/login" component={Login} meta={{ auth: false }} exact />
+                <GuardedRoute path="/register" component={Register} meta={{ auth: false }} exact />
+            </Switch>
+        </div>
     );
 }
 
@@ -64,37 +103,22 @@ function Router(props) {
             }
             next.redirect('/dashboard/manage-services');
         }
-    };
+    }
 
     return (
         <BrowserRouter>
-            <Nav open={open}></Nav>
-            <Booking></Booking>
+            <Nav open={open} />
+            <Booking />
             <div onClick={toggle} className={`toggle-nav ${open ? 'open' : 'closed'}`}>
                 {!open ? <span className="material-icons">menu</span> : <span className="material-icons">close</span>}
             </div>
 
             <div className={`filler ${open ? 'open' : 'closed'}`}></div>
-
             <GuardProvider guards={[requireLogin]} loading={Loading} error={NotFound}>
-                <Switch>
-                    <GuardedRoute path="/" component={Home} exact />
-                    <GuardedRoute path="/pricing" component={Pricing} exact />
-                    <GuardedRoute path="/about" component={About} exact />
-                    <GuardedRoute path="/opening-times" component={OpeningTimes} exact />
-                    <GuardedRoute path="/contact" component={Contact} exact />
-                    <GuardedRoute path="/ems-training" component={EmsTraining} exact />
-                    <GuardedRoute path="/light-therapy" component={LightTherapy} exact />
-                    <GuardedRoute path="/abdominal-training" component={AbdominalTraining} exact />
-                    <GuardedRoute path="/confirm-booking/:confirmKey" component={ConfirmBooking} exact />
-                    <GuardedRoute path="/login" component={Login} meta={{ auth: false }} exact />
-                    <GuardedRoute path="/register" component={Register} meta={{ auth: false }} exact />
-                    <GuardedRoute path="/dashboard/manage-images" component={Images} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/manage-requests" component={Requests} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/manage-services" component={Templates} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/add-template" component={AddTemplate} meta={{ auth: true }} exact />
-                </Switch>
+                <GuardedRoute path="/" component={HomeRouter} />
+                <GuardedRoute path="/dashboard" component={DashboardRouter} />
             </GuardProvider>
+
             <Alerts />
         </BrowserRouter>
     );

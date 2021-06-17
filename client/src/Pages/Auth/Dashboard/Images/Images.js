@@ -1,11 +1,9 @@
 import React from 'react';
-import DashboardNav from '../DashboardNav/DashboardNav';
 import '../Page.scss';
 
 function Images(props) {
     return (
-        <div className="Dashboard-Page container">
-            <DashboardNav />
+        <div>
             <h1>Images</h1>
         </div>
     )

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import DashboardNav from '../DashboardNav/DashboardNav';
 import '../Page.scss';
 import './Booking.scss';
 import HTTP from '../../../../Utils/HTTP';
@@ -54,8 +53,7 @@ function Requests(props) {
     }, []);
 
     return (
-        <div className="Dashboard-Page container">
-            <DashboardNav />
+        <div>
             <h1>Requests</h1>
 
             <div className="bookings">
