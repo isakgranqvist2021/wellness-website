@@ -21,7 +21,8 @@ function setToken(token) {
 }
 
 function getToken() {
-    return localStorage.getItem('session');
+    const token = localStorage.getItem('session');
+    return token;
 }
 
 function clearToken() {

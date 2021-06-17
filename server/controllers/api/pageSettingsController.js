@@ -9,4 +9,12 @@ async function updateSettings(req, res) {
     }
 }
 
-export default { updateSettings };
+async function uploadImg(req, res) {
+    return res.json({
+        message: 'file uploaded, click save to publish it.',
+        success: true,
+        data: req.file.filename
+    });
+}
+
+export default { updateSettings, uploadImg };

@@ -12,11 +12,8 @@ function Booking(props) {
     const [selectedTime, selectTime] = React.useState({});
     const [activePage, setActivePage] = React.useState(0);
 
-    bookingStore.subscribe(() => {
-        setOpen(bookingStore.getState().open);
-    });
-
     useEffect(() => {
+        bookingStore.subscribe(() => setOpen(bookingStore.getState().open));
 
         switch (activePage) {
             case 0:
@@ -33,9 +30,9 @@ function Booking(props) {
                 break;
         }
 
-        return () => console.log('unmount');
+        return () => { };
 
-    }, [activePage, props.pageSettings]);
+    }, [activePage]);
 
 
     const confirmBookingProps = () => {
@@ -52,7 +49,7 @@ function Booking(props) {
                     insert_invitation
                 </span>
 
-                {props.pageSettings !== undefined && props.pageSettings.find(ps => ps.label === 'button').value}
+                Book An Appointment
             </div>
 
             <div className={`booking-window ${open ? 'open' : 'closed'}`}>

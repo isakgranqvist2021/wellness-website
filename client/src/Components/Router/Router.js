@@ -1,15 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import navStore from '../../Store/nav.store';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
+import { BrowserRouter, Switch } from "react-router-dom";
 import auth from '../../Utils/Auth';
 import './Router.scss';
-import {
-    BrowserRouter,
-    Switch
-} from "react-router-dom";
-
-import pageStore from '../../Store/page.store';
-
 import Nav from '../Nav/Nav';
 import Alerts from '../Alerts/Alerts';
 import Booking from '../Booking/Booking';
@@ -23,7 +17,6 @@ import Register from '../../Pages/Auth/Register/Register';
 import LightTherapy from '../../Pages/LightTherapy';
 import EmsTraining from '../../Pages/EmsTraining';
 import AbdominalTraining from '../../Pages/AbdominalTraining';
-import Content from '../../Pages/Auth/Dashboard/Content/Content';
 import Images from '../../Pages/Auth/Dashboard/Images/Images';
 import Requests from '../../Pages/Auth/Dashboard/Requests/Requests';
 import Templates from '../../Pages/Auth/Dashboard/Services/Templates';
@@ -42,10 +35,7 @@ function NotFound(props) {
     );
 }
 
-
-
 function Router(props) {
-    const [pageSettings, setPageSettings] = React.useState({});
     const [open, setOpen] = React.useState(false);
     navStore.subscribe(() => setOpen(navStore.getState().open));
 
@@ -76,93 +66,35 @@ function Router(props) {
         }
     };
 
-    useEffect(() => {
-        pageStore.subscribe(() => {
-            setPageSettings(pageStore.getState().data);
-        });
-
-        return () => { };
-    }, [])
-
     return (
         <BrowserRouter>
             <Nav open={open}></Nav>
-            <Booking pageSettings={pageSettings.bookingWindow}></Booking>
+            <Booking></Booking>
             <div onClick={toggle} className={`toggle-nav ${open ? 'open' : 'closed'}`}>
                 {!open ? <span className="material-icons">menu</span> : <span className="material-icons">close</span>}
             </div>
 
             <div className={`filler ${open ? 'open' : 'closed'}`}></div>
-            {pageSettings !== undefined &&
-                (
-                    <GuardProvider guards={[requireLogin]} loading={Loading} error={NotFound}>
-                        <Switch>
-                            <GuardedRoute path="/" exact>
-                                <Home pageSettings={pageSettings.home} />
-                            </GuardedRoute>
 
-                            <GuardedRoute path="/pricing" exact >
-                                <Pricing pageSettings={pageSettings.pricing} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/about" exact >
-                                <About pageSettings={pageSettings.about} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/opening-times" exact >
-                                <OpeningTimes pageSettings={pageSettings.openingTimes} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/contact" exact >
-                                <Contact pageSettings={pageSettings.contact} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/ems-training" exact >
-                                <EmsTraining pageSettings={pageSettings.emsTraining} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/light-therapy" exact >
-                                <LightTherapy pageSettings={pageSettings.lightTherapy} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/abdominal-training" exact >
-                                <AbdominalTraining pageSettings={pageSettings.abdonimalTraining} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/confirm-booking/:confirmKey" exact >
-                                <ConfirmBooking pageSettings={pageSettings.confirmBooking} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/login" meta={{ auth: false }} exact >
-                                <Login pageSettings={pageSettings.login} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/register" meta={{ auth: false }} exact >
-                                <Register pageSettings={pageSettings.register} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/dashboard/manage-content" meta={{ auth: true }} exact >
-                                <Content pageSettings={pageSettings} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/dashboard/manage-images" meta={{ auth: true }} exact >
-                                <Images pageSettings={pageSettings.manageImages} />
-                            </GuardedRoute>
-                            <GuardedRoute path="/dashboard/manage-requests" meta={{ auth: true }} exact >
-                                <Requests pageSettings={pageSettings.manageRequests} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/dashboard/manage-services" meta={{ auth: true }} exact>
-                                <Templates pageSettings={pageSettings.manageServices} />
-                            </GuardedRoute>
-
-                            <GuardedRoute path="/dashboard/add-template" meta={{ auth: true }} exact >
-                                <AddTemplate pageSettings={pageSettings.addTemplate} />
-                            </GuardedRoute>
-                        </Switch>
-                    </GuardProvider>
-                )}
-
+            <GuardProvider guards={[requireLogin]} loading={Loading} error={NotFound}>
+                <Switch>
+                    <GuardedRoute path="/" component={Home} exact />
+                    <GuardedRoute path="/pricing" component={Pricing} exact />
+                    <GuardedRoute path="/about" component={About} exact />
+                    <GuardedRoute path="/opening-times" component={OpeningTimes} exact />
+                    <GuardedRoute path="/contact" component={Contact} exact />
+                    <GuardedRoute path="/ems-training" component={EmsTraining} exact />
+                    <GuardedRoute path="/light-therapy" component={LightTherapy} exact />
+                    <GuardedRoute path="/abdominal-training" component={AbdominalTraining} exact />
+                    <GuardedRoute path="/confirm-booking/:confirmKey" component={ConfirmBooking} exact />
+                    <GuardedRoute path="/login" component={Login} meta={{ auth: false }} exact />
+                    <GuardedRoute path="/register" component={Register} meta={{ auth: false }} exact />
+                    <GuardedRoute path="/dashboard/manage-images" component={Images} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-requests" component={Requests} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-services" component={Templates} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/add-template" component={AddTemplate} meta={{ auth: true }} exact />
+                </Switch>
+            </GuardProvider>
             <Alerts />
         </BrowserRouter>
     );

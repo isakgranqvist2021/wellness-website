@@ -1,4 +1,4 @@
-$navWidth: 300px;
+$navWidth: 370px;
 
 .main-nav {
     position: fixed;
@@ -10,10 +10,10 @@ $navWidth: 300px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     overflow: hidden;
     transition: all 315ms ease;
-    z-index: 3;
+    z-index: 4;
 
     &.open {
-        width: 300px;
+        width: 370px;
     }
 
     &.closed {
@@ -35,7 +35,7 @@ $navWidth: 300px;
     
         .link-group {
             padding: 25px 0;
-                        
+            
             &:first-of-type {
                 padding-top: 50px;
             }
@@ -44,7 +44,7 @@ $navWidth: 300px;
                 border-bottom: 1px solid rgb(240, 240, 240);
             }
 
-            a, button {
+            a, button, p, h3 {
                 width: 75%;
                 margin: .6rem auto;
                 display: block;
@@ -63,6 +63,27 @@ $navWidth: 300px;
                 }
             }
 
+            p {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-between;
+                align-items: center;
+                span {
+                    font-size: 1.2rem;
+                }
+            }
+
+            h3, p {
+                &:hover {
+                    color: rgb(58, 58, 58) !important;
+                    cursor: auto;
+                }
+            }
+
+            h3 {
+                font-size: 1.3rem;
+                text-transform: uppercase;
+            }
         }
     }
 }

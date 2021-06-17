@@ -1,8 +1,14 @@
 const serverAddr = 'http://localhost:3000';
 
-function headers() {
+function headers(excludeContentType) {
+    if (!excludeContentType) {
+        return {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('session')
+        }
+    }
+
     return {
-        'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('session')
     }
 }
@@ -36,13 +42,13 @@ async function POST(url, body, signal) {
     }
 }
 
-async function PUT(url, body, signal) {
+async function PUT(url, body, signal, useContentType) {
     try {
         const response = await fetch(serverAddr + url, {
             method: 'PUT',
             body: body,
             signal: signal,
-            headers: headers()
+            headers: headers(useContentType)
         });
 
         return await response.json();

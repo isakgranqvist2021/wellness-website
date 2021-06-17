@@ -1,8 +1,9 @@
 import React from 'react';
+import './Static.page.scss';
 
 function About(props) {
     return (
-        <div>
+        <div className="container">
             <h1>About</h1>
         </div>
     );

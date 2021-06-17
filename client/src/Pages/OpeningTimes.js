@@ -1,8 +1,9 @@
 import React from 'react';
+import './Static.page.scss';
 
 function OpeningTimes(props) {
     return (
-        <div>
+        <div className="container">
             <h1>Opening Times</h1>
         </div>
     )

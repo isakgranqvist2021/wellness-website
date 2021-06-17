@@ -70,4 +70,5 @@ async function deleteService(sid) {
     }
 }
 
+
 export default { createService, getServices, findServicesByTemp, deleteService };

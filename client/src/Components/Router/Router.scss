@@ -5,9 +5,9 @@
     cursor: pointer;
     margin: 1rem;
     transition: all 315ms ease;
-    z-index: 3;
+    z-index: 4;
     &.open {
-        left: 300px;
+        left: 370px;
     }
 
     span {
@@ -16,7 +16,7 @@
 }
 
 .filler {
-    z-index: 2;
+    z-index: 3;
     position: fixed;
     inset: 0;
     pointer-events: none;

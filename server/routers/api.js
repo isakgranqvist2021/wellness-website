@@ -1,5 +1,18 @@
 import express from 'express';
+import multer from 'multer';
+import path from 'path';
+
 const router = express.Router();
+const upload = multer({
+    storage: multer.diskStorage({
+        destination(req, file, cb) {
+            cb(null, 'uploads/')
+        },
+        filename(req, file, cb) {
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        }
+    })
+});
 
 import profileController from '../controllers/api/profileController';
 import serviceController from '../controllers/api/serviceController';
@@ -22,5 +35,7 @@ router.put('/update-template/:tid', templateController.updateTemplate);
 router.get('/get-bookings', bookingController.getBookings);
 router.put('/approve-booking', bookingController.approveBooking);
 router.put('/update-page-settings', pageSettingsController.updateSettings);
+
+router.put('/upload-img', upload.single('file'), pageSettingsController.uploadImg);
 
 export default router;

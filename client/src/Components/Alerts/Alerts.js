@@ -3,16 +3,18 @@ import alertsStore from '../../Store/alerts.store';
 import './Alerts.scss';
 
 function Alerts(props) {
+    const [show, setShow] = React.useState(false);
     const [alert, setAlert] = React.useState({
         text: 'Big Alert!',
         error: true
     });
 
-    const [show, setShow] = React.useState(false);
-
     alertsStore.subscribe(() => {
         setAlert(alertsStore.getState());
         setShow(true);
+        window.setTimeout(() => {
+            setShow(false);
+        }, 5000);
     });
 
     return (
