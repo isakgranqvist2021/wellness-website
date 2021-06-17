@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import navStore from '../../Store/nav.store';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
 import auth from '../../Utils/Auth';
@@ -42,6 +42,8 @@ function NotFound(props) {
     );
 }
 
+
+
 function Router(props) {
     const [pageSettings, setPageSettings] = React.useState({});
     const [open, setOpen] = React.useState(false);
@@ -74,10 +76,13 @@ function Router(props) {
         }
     };
 
-    pageStore.subscribe(() => {
-        console.log(pageStore.getState());
-        setPageSettings(pageStore.getState().data);
-    });
+    useEffect(() => {
+        pageStore.subscribe(() => {
+            setPageSettings(pageStore.getState().data);
+        });
+
+        return () => { };
+    }, [])
 
     return (
         <BrowserRouter>
@@ -88,72 +93,75 @@ function Router(props) {
             </div>
 
             <div className={`filler ${open ? 'open' : 'closed'}`}></div>
-            <GuardProvider guards={[requireLogin]} loading={Loading} error={NotFound}>
-                <Switch>
-                    <GuardedRoute path="/" exact>
-                        <Home pageSettings={pageSettings.home} />
-                    </GuardedRoute>
+            {pageSettings !== undefined &&
+                (
+                    <GuardProvider guards={[requireLogin]} loading={Loading} error={NotFound}>
+                        <Switch>
+                            <GuardedRoute path="/" exact>
+                                <Home pageSettings={pageSettings.home} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/pricing" exact >
-                        <Pricing pageSettings={pageSettings.pricing} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/pricing" exact >
+                                <Pricing pageSettings={pageSettings.pricing} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/about" exact >
-                        <About pageSettings={pageSettings.about} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/about" exact >
+                                <About pageSettings={pageSettings.about} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/opening-times" exact >
-                        <OpeningTimes pageSettings={pageSettings.openingTimes} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/opening-times" exact >
+                                <OpeningTimes pageSettings={pageSettings.openingTimes} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/contact" exact >
-                        <Contact pageSettings={pageSettings.contact} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/contact" exact >
+                                <Contact pageSettings={pageSettings.contact} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/ems-training" exact >
-                        <EmsTraining pageSettings={pageSettings.emsTraining} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/ems-training" exact >
+                                <EmsTraining pageSettings={pageSettings.emsTraining} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/light-therapy" exact >
-                        <LightTherapy pageSettings={pageSettings.lightTherapy} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/light-therapy" exact >
+                                <LightTherapy pageSettings={pageSettings.lightTherapy} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/abdominal-training" exact >
-                        <AbdominalTraining pageSettings={pageSettings.abdonimalTraining} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/abdominal-training" exact >
+                                <AbdominalTraining pageSettings={pageSettings.abdonimalTraining} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/confirm-booking/:confirmKey" exact >
-                        <ConfirmBooking pageSettings={pageSettings.confirmBooking} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/confirm-booking/:confirmKey" exact >
+                                <ConfirmBooking pageSettings={pageSettings.confirmBooking} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/login" meta={{ auth: false }} exact >
-                        <Login pageSettings={pageSettings.login} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/login" meta={{ auth: false }} exact >
+                                <Login pageSettings={pageSettings.login} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/register" meta={{ auth: false }} exact >
-                        <Register pageSettings={pageSettings.register} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/register" meta={{ auth: false }} exact >
+                                <Register pageSettings={pageSettings.register} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/dashboard/manage-content" meta={{ auth: true }} exact >
-                        <Content pageSettings={pageSettings} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/dashboard/manage-content" meta={{ auth: true }} exact >
+                                <Content pageSettings={pageSettings} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/dashboard/manage-images" meta={{ auth: true }} exact >
-                        <Images pageSettings={pageSettings.manageImages} />
-                    </GuardedRoute>
-                    <GuardedRoute path="/dashboard/manage-requests" meta={{ auth: true }} exact >
-                        <Requests pageSettings={pageSettings.manageRequests} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/dashboard/manage-images" meta={{ auth: true }} exact >
+                                <Images pageSettings={pageSettings.manageImages} />
+                            </GuardedRoute>
+                            <GuardedRoute path="/dashboard/manage-requests" meta={{ auth: true }} exact >
+                                <Requests pageSettings={pageSettings.manageRequests} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/dashboard/manage-services" meta={{ auth: true }} exact>
-                        <Templates pageSettings={pageSettings.manageServices} />
-                    </GuardedRoute>
+                            <GuardedRoute path="/dashboard/manage-services" meta={{ auth: true }} exact>
+                                <Templates pageSettings={pageSettings.manageServices} />
+                            </GuardedRoute>
 
-                    <GuardedRoute path="/dashboard/add-template" meta={{ auth: true }} exact >
-                        <AddTemplate pageSettings={pageSettings.addTemplate} />
-                    </GuardedRoute>
-                </Switch>
-            </GuardProvider>
+                            <GuardedRoute path="/dashboard/add-template" meta={{ auth: true }} exact >
+                                <AddTemplate pageSettings={pageSettings.addTemplate} />
+                            </GuardedRoute>
+                        </Switch>
+                    </GuardProvider>
+                )}
 
             <Alerts />
         </BrowserRouter>

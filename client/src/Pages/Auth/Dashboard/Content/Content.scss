@@ -1,7 +1,5 @@
 .page-setting {
     margin: 1rem 0;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    padding: 2.5rem;
 
     h3 {
         font-size: 2.75rem;
@@ -10,54 +8,41 @@
     }
 
     form {
-        .form-container {
-            margin: 1.5rem 0;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        padding: 2.5rem;
+        margin: 1rem 0 2rem 0;
 
-            .form-group {
-                display: flex;
-                
-                section {
-                    display: inherit;
-                    flex-direction: column;
-                    width: auto;
+        section {
+            width: 100%;
+            margin: 1.75rem 0;
 
-                    &.text {
-                        width: 100%;
-                    }
+            label {
+                text-transform: capitalize;
+                margin-bottom: 8px;
+                display: block;
+            }
 
-                    label {
-                        display: block;
-                        margin-bottom: 8px;
-                        text-transform: capitalize;
-                    }
-
-                    &:not(:last-of-type) {
-                        margin-right: 1rem;
-                    }
-
-                    input[type=text] {
-                        width: 100%;
-                        padding: .6rem;
-                        border: 1px solid lightgray;
-                        outline: none;
-                    }
-                }
+            input[type=text] {
+                width:100%;
+                padding: .5rem;
+                outline: none;
+                border: 1px solid lightgray;
             }
         }
-
+        
         button {
             display: block;
             margin: 0 0 0 auto;
-            padding: .6rem;
-            background-color: #0c55c4;
+            padding: .5rem;
             width: 10rem;
-            border: none;
-            color: #fff;
-            border-radius: .6rem;
+            border: 1px solid #0c55c4;
+            background-color: #ffffff;
             cursor: pointer;
+            border-radius: .5rem;
 
             &:hover {
-                background-color: #1262da;
+                background-color: #0c55c4;
+                color: #fff;
             }
         }
     }

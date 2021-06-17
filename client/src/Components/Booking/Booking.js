@@ -11,21 +11,13 @@ function Booking(props) {
     const [selectedTemplate, selectTemplate] = React.useState({});
     const [selectedTime, selectTime] = React.useState({});
     const [activePage, setActivePage] = React.useState(0);
-    const [settings, setSettings] = React.useState({
-        button: { text: 'ike Aldus PageMaker.' }
-    });
 
     bookingStore.subscribe(() => {
         setOpen(bookingStore.getState().open);
     });
 
     useEffect(() => {
-        if (props.pageSettings !== undefined) {
-            let button = props.pageSettings.find(s => s.label === 'button');
-            setSettings({
-                button: { text: button.text.value }
-            });
-        }
+
         switch (activePage) {
             case 0:
                 setHeaderText('Pick Training');
@@ -55,16 +47,17 @@ function Booking(props) {
 
     return (
         <div className="booking-component">
-            <div className={`toggle-booking ${!open ? 'open' : 'closed'}`} onClick={() => setOpen(true)} style={{ color: settings.button.color, backgroundColor: settings.button.backgroundColor }}>
+            <div className={`toggle-booking ${!open ? 'open' : 'closed'}`} onClick={() => setOpen(true)}>
                 <span className="material-icons">
                     insert_invitation
                 </span>
-                {settings.button.text}
+
+                {props.pageSettings !== undefined && props.pageSettings.find(ps => ps.label === 'button').value}
             </div>
 
             <div className={`booking-window ${open ? 'open' : 'closed'}`}>
                 <div className="booking-window-content">
-                    <header style={{ backgroundColor: settings.button.backgroundColor }}>
+                    <header>
                         <h3>{headerText}</h3>
                         <span className="material-icons close-window" onClick={() => setOpen(false)}>close</span>
                     </header>
