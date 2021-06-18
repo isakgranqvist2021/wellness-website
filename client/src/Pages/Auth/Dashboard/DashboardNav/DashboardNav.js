@@ -6,7 +6,7 @@ function DashboardNav(props) {
     return (
         <nav className="dashboard-nav">
             <div className="container">
-                <Link to="/dashboard/manage-requests">Requests</Link>
+                <Link to="/dashboard/manage-bookings">Bookings</Link>
                 <Link to="/dashboard/manage-templates">My Templates</Link>
                 <Link to="/dashboard/add-template">Add Template</Link>
                 <Link to="/dashboard/manage-images">Images</Link>

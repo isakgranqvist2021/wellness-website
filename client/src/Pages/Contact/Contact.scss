@@ -1,0 +1,44 @@
+.contact-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+    form {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        padding: 2rem;
+        width: 500px;
+    
+        .form-group {
+            margin: 2rem 0;
+            label {
+                display: block;
+                margin-bottom: 8px;
+            }
+        }
+
+        button {
+            display: block;
+            margin: 0 0 0 auto;
+            padding: .75rem;
+            border: none;
+            background-color: #0c55c4;
+            cursor: pointer;
+            color: #fff;
+            border-radius: .5rem;
+
+            &:hover {
+                background-color: #1e69da;
+            }
+        }
+    }
+}
+
+@media only screen and(max-width: 800px) {
+    .contact-page {
+        form {
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+}

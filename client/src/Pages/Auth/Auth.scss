@@ -25,19 +25,6 @@
                 display: block;
                 margin-bottom: 8px;
             }
-
-            input {
-                padding: .5rem;
-                display: block;
-                width: 100%;
-                border: 1px solid rgb(190, 190, 190);
-                outline: none;
-                border-radius: .25rem;
-
-                &:focus {
-                    border-color: rgb(12, 166, 238);
-                }
-            }
         }
 
         button {
@@ -52,6 +39,15 @@
 
             &:hover {
                 background-color: rgb(24, 82, 207);
+            }
+
+            &:disabled {
+                background-color: #1462d6a9;
+                cursor: not-allowed;
+    
+                &:hover {
+                    background-color: #1462d6a9;
+                }
             }
         }
 

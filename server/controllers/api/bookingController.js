@@ -22,7 +22,7 @@ async function createBooking(req, res) {
             subject: 'Please confirm your booking',
             html: setupView('email', {
                 href: `${process.env.CONFIRM_URL}/confirm-booking/${newBooking.confirmKey}`,
-                origin: `http://ems-training.com`,
+                origin: process.env.ORIGIN,
                 content: {
                     src: 'https://images.pexels.com/photos/116077/pexels-photo-116077.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
                     header: 'Please confirm your booking',
@@ -41,39 +41,65 @@ async function createBooking(req, res) {
 
 async function getBookings(req, res) {
     try {
-        const bookings = await bookingModel.findBookings();
+        const bookings = await bookingModel.findBookings({});
         return res.json({ message: '', success: true, data: bookings });
     } catch (err) {
         return res.json({ message: 'something fishy is going on', success: false, data: null });
     }
 }
 
-async function approveBooking(req, res) {
+async function approveMany(req, res) {
     try {
-        const result = await bookingModel.approveBooking(req.body._id, req.body.approved);
+        const result = await bookingModel.updateMany(req.body.bookings);
+        const bookings = await bookingModel.findBookings({ _id: { $in: req.body.bookings } });
 
-        await sendEmail({
-            receiver: result.email,
-            subject: result.message,
-            html: setupView('email', {
-                href: null,
-                origin: `http://ems-training.com`,
-                content: {
-                    src: 'https://images.pexels.com/photos/1032117/pexels-photo-1032117.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-                    header: result.message,
-                    body: 'Your booking has been approved, thanks for choosing ems-training.com'
-                }
-            })
-        });
+        await Promise.all(bookings.map(async (booking) => {
+            return await sendEmail({
+                receiver: booking.email,
+                subject: 'Your booking has been approved!',
+                html: setupView('email', {
+                    href: null,
+                    origin: process.env.ORIGIN,
+                    content: {
+                        src: 'https://images.pexels.com/photos/1032117/pexels-photo-1032117.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+                        header: 'Your booking has been approved',
+                        body: 'Your booking has been approved, thanks for choosing ems-training.com'
+                    }
+                })
+            });
+        }));
 
         return res.json({
-            message: result.message,
+            message: `updated ${result.nModified} bookings`,
             success: true,
             data: null
         });
 
     } catch (err) {
-        return res.json({ message: 'something fishy is going on', success: false, data: null });
+        return res.json({
+            message: `an error has occured`,
+            success: false,
+            data: null
+        });
+    }
+}
+
+async function removeMany(req, res) {
+    console.log(req.body.bookings);
+
+    try {
+        const result = await bookingModel.removeMany(req.body.bookings);
+        return res.json({
+            message: `removed ${result.n} bookings`,
+            success: true,
+            data: null
+        });
+    } catch (err) {
+        return res.json({
+            message: `an error has occured`,
+            success: false,
+            data: null
+        });
     }
 }
 
@@ -88,4 +114,4 @@ async function confirmBooking(req, res) {
     }
 }
 
-export default { createBooking, confirmBooking, getBookings, approveBooking };
+export default { createBooking, confirmBooking, getBookings, approveMany, removeMany };

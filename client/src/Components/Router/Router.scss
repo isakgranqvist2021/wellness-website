@@ -6,6 +6,8 @@
     margin: 1rem;
     transition: all 315ms ease;
     z-index: 4;
+    display: none;
+
     &.open {
         left: 370px;
     }
@@ -21,9 +23,32 @@
     inset: 0;
     pointer-events: none;
     transition: all 315ms ease;
+    display: none;
 
     &.open {
         background-color: rgba(0, 0, 0, 0.418);
         pointer-events: auto;
+    }
+}
+
+main {
+    display: flex;
+
+    .page-content {
+        flex-grow: 1;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+}
+
+
+@media only screen and(max-width: 1600px) {
+    .toggle-nav {
+        display: block;
+    }
+
+    .filler {
+        display: block;
     }
 }

@@ -10,18 +10,6 @@
                 display: block;
                 margin-bottom: 8px;
             }
-
-            input {
-                width: 100%;
-                padding: .66rem;
-                border: 1px solid lightgray;
-                border-radius: .5rem;
-                outline: none;
-
-                &:focus {
-                    border-color: rgb(6, 57, 221);
-                }
-            }
         }
  
         button {

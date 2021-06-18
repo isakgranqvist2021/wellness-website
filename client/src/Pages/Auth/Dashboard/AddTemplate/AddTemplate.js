@@ -7,24 +7,24 @@ import '../Page.scss';
 
 function AddTemplate(props) {
     const [serviceName, setServiceName] = React.useState('');
-    const [active, setActive] = React.useState(false);
     const [price, setPrice] = React.useState(1);
     const [user, setUser] = React.useState({ name: 'Your Name' });
+    const [loading, setLoading] = React.useState(false);
 
     userStore.subscribe(() => {
         setUser(userStore.getState().user);
     });
 
     const submit = async () => {
+        setLoading(true);
         const response = await HTTP.POST('/api/create-template', JSON.stringify({
             serviceName: serviceName,
             price: price,
-            active: active
+            active: true
         }));
 
         if (response.success) {
             setServiceName('');
-            setActive(false);
             setPrice(1);
         }
 
@@ -34,6 +34,7 @@ function AddTemplate(props) {
                 error: !response.success
             }
         });
+        setLoading(false);
     }
 
     return (
@@ -53,11 +54,7 @@ function AddTemplate(props) {
                     <label htmlFor="price">Price</label>
                     <input type="number" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
                 </section>
-                <section className="checkbox-row">
-                    <label htmlFor="enabled">Enabled</label>
-                    <input type="checkbox" id="enabled" value={active} onChange={(e) => setActive(e.target.checked)} />
-                </section>
-                <button type="button" onClick={submit}>Add Service</button>
+                <button type="button" onClick={submit} disabled={loading}>Add Service</button>
             </form>
         </div>
     );

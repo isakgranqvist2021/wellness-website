@@ -18,7 +18,7 @@ import profileController from '../controllers/api/profileController';
 import serviceController from '../controllers/api/serviceController';
 import templateController from '../controllers/api/templateController';
 import bookingController from '../controllers/api/bookingController';
-import pageSettingsController from '../controllers/api/pageSettingsController';
+import pageSettingsController from '../controllers/api/pageContentController';
 
 router.get('/profile', profileController);
 
@@ -33,8 +33,11 @@ router.delete('/delete-template/:tid', templateController.deleteTemplate);
 router.put('/update-template/:tid', templateController.updateTemplate);
 
 router.get('/get-bookings', bookingController.getBookings);
-router.put('/approve-booking', bookingController.approveBooking);
-router.put('/update-page-settings', pageSettingsController.updateSettings);
+
+router.put('/approve-bookings', bookingController.approveMany);
+router.put('/remove-bookings', bookingController.removeMany);
+
+router.put('/update-page-content', pageSettingsController.updateContent);
 
 router.put('/upload-img', upload.single('file'), pageSettingsController.uploadImg);
 

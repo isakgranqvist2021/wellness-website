@@ -8,8 +8,10 @@ import registerController from '../controllers/index/registerController';
 import templateController from '../controllers/api/templateController';
 import serviceController from '../controllers/api/serviceController';
 import bookingController from '../controllers/api/bookingController';
+import pageContentController from '../controllers/api/pageContentController';
 
-router.get('/', indexController);
+router.get('/all-content', indexController);
+router.get('/page-content/:field', pageContentController.getContent);
 router.post('/register', registerController);
 router.post('/login', loginController);
 router.get('/get-templates', templateController.findTemplates);

@@ -35,8 +35,10 @@ function Register(props) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [key, setKey] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
 
     const submit = async () => {
+        setLoading(true);
         try {
             const response = await HTTP.POST('/register', JSON.stringify({
                 name: name,
@@ -47,7 +49,7 @@ function Register(props) {
 
             if (response.success) {
                 if (auth.setToken(response.data)) {
-                    history.push('/dashboard/manage-requests');
+                    history.push('/dashboard/manage-bookings');
                     authStore.dispatch({ type: 'login' });
                 }
             }
@@ -58,8 +60,15 @@ function Register(props) {
                     error: !response.success
                 }
             });
+            setLoading(false);
         } catch (err) {
-            console.log(err);
+            alertsStore.dispatch({
+                type: 'set', newState: {
+                    error: true,
+                    message: 'something went wrong...'
+                }
+            });
+            setLoading(false);
         }
     }
 
@@ -84,7 +93,7 @@ function Register(props) {
                         <label>Key</label>
                         <input type="text" value={key} onChange={(e) => setKey(e.target.value)} />
                     </section>
-                    <button type="button" onClick={submit}>Create Account</button>
+                    <button type="button" onClick={submit} disabled={loading}>Create Account</button>
                     <Link to="/login">Already have an account?</Link>
                 </form>
             </div>

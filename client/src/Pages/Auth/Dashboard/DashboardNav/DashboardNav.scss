@@ -1,39 +1,34 @@
 .dashboard-nav {
-    display: flex;
-    flex-flow: row wrap;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    position: fixed;
-    top: 0;
     width: 100%;
     background-color: #ffffff;
     z-index: 2;
-    height: 5rem;
     align-items: center;
+    display: flex;
 
-    a {
-        text-decoration: none;
-        display: inline-block;
-        color: #2b2b2b;
-
-        &:hover {
-           color: gray;
-        }
-
-        &:not(:last-of-type) {
-            margin-right: 1rem;
+    .container {
+        display: flex;
+        align-items: center;
+        a {
+            text-decoration: none;
+            display: inline-block;
+            color: #2b2b2b;
+            &:hover {
+               color: gray;
+            }
+    
+            &:not(:last-of-type) {
+                margin-right: 1rem;
+            }
         }
     }
 }
 
 @media only screen and (max-width: 1200px) {
     .dashboard-nav {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-
         a {
             font-size: .85rem;
             text-align: center;
-            margin-bottom: .8rem;
 
             &:not(:last-of-type) {
                 margin-right: 0;

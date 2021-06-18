@@ -33,8 +33,10 @@ function Login(props) {
     const history = useHistory();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
 
     const submit = async () => {
+        setLoading(true);
         try {
             const response = await HTTP.POST('/login', JSON.stringify({
                 email: email,
@@ -43,7 +45,7 @@ function Login(props) {
 
             if (response.success) {
                 if (auth.setToken(response.data)) {
-                    history.push('/dashboard/manage-requests');
+                    history.push('/dashboard/manage-bookings');
                     authStore.dispatch({ type: 'login' });
                 }
             }
@@ -55,7 +57,12 @@ function Login(props) {
             });
 
         } catch (err) {
-
+            alertsStore.dispatch({
+                type: 'set', newState: {
+                    error: true,
+                    message: 'something went wrong..'
+                }
+            });
         }
     }
 
@@ -72,7 +79,7 @@ function Login(props) {
                         <label>Password</label>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </section>
-                    <button type="button" onClick={submit}>Log in</button>
+                    <button type="button" onClick={submit} disabled={loading}>Log in</button>
                     <Link to="/register">Don't have an account?</Link>
                 </form>
             </div>

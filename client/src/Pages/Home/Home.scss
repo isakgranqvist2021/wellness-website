@@ -17,10 +17,11 @@
             nav {
                 position: absolute;
                 bottom: 0;
-                right: 0;
+                right: 50%;
                 margin-bottom: 2rem;
                 display: flex;
                 width: 50%;
+                transform: translateX(50%);
 
                 a {
                     font-size: 1rem;
@@ -62,7 +63,7 @@
             }
 
             div {
-                width: 50%;
+                width: 75%;
 
                 h1 {
                     max-width: 25ch;

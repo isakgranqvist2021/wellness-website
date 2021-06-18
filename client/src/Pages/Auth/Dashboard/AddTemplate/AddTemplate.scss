@@ -14,18 +14,6 @@
             width: 25%;
             margin-right: 1rem;
         }
-
-        input:not([type=checkbox]) {
-            display: block;
-            padding: .5rem;
-            flex-grow: 1;
-            outline: none;
-            border: 1px solid lightgray;
-
-            &:focus {
-                border-color: lightblue;
-            }
-        }
     }
 
     button {
@@ -40,6 +28,15 @@
 
         &:hover {
             background-color: rgb(11, 66, 216);
+        }
+
+        &:disabled {
+            background-color: #1462d6a9;
+            cursor: not-allowed;
+
+            &:hover {
+                background-color: #1462d6a9;
+            }
         }
     }
 }
@@ -56,11 +53,6 @@
             label {
                 width: 100%;
                 margin: 0 0 8px 0 !important;
-            }
-
-            input:not([type=checkbox]) {
-                width: 100%;
-                margin: 0 !important;
             }
         }
     }

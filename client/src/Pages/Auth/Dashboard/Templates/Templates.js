@@ -29,11 +29,12 @@ function Templates(props) {
         (async () => {
             const response = await HTTP.GET('/api/get-templates', abort.signal);
             setTemplates(response.data);
-        })(abort)
+        })();
 
         return () => abort.abort();
     }, []);
 
+    console.log(templates);
     return (
         <div className="manage-services">
             <h1>Manage Services</h1>

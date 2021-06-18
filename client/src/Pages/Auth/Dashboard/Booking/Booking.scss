@@ -1,0 +1,97 @@
+.bookings {
+    .booking-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        select {
+            padding: .5rem;
+            border: 1px solid rgb(173, 173, 173);
+        }
+
+        button {
+            padding: .5rem 1rem;
+            display: flex;
+            align-items: center;
+            border: none;
+            background-color: #0c55c4;
+            color: #ffffff;
+            border-radius: .5rem;
+            cursor: pointer;
+
+            span {
+                transition: all 190ms linear;
+            }
+
+            &:hover {
+                span {
+                    transform: rotate(360deg);
+                }
+            }
+        }
+    }
+
+    .booking-footer-actions {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+
+        button {
+            padding: .5rem 1rem;
+            display: flex;
+            align-items: center;
+            border: none;
+            background-color: #0c55c4;
+            color: #ffffff;
+            border-radius: .5rem;
+            cursor: pointer;
+            transition: all 190ms linear;
+
+            &.danger {
+                background-color: crimson;
+            }
+
+            &:not(:last-of-type) {
+                margin-right: 1rem;
+            }
+
+            &:hover {
+                transform: scale(.9);
+            }
+        }
+    }
+
+    table {
+        text-align: left;
+        border-collapse: collapse;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        max-width: 100%;
+        overflow-x: auto;
+        display: block;
+        min-height: 50vh;
+        tr {
+            border: 1px solid rgb(238, 238, 238);
+            td, th {
+                padding: 1rem;
+                white-space: nowrap;
+            }
+        }
+    
+        tbody {
+            tr {
+                cursor: pointer;
+                transition: all 50ms linear;
+
+                &.selected {
+                    color: rgb(100, 168, 247);
+                    font-weight: bold;
+                }
+
+                &:hover {
+                    background-color: rgb(245, 245, 245);
+                }
+            }
+        }
+    }
+}

@@ -4,6 +4,7 @@ import bookingStore from '../../Store/booking.store';
 import PickTraining from './PickTraining';
 import PickTime from './PickTime';
 import ConfirmBooking from './ConfirmBooking';
+import HTTP from '../../Utils/HTTP';
 
 function Booking(props) {
     const [headerText, setHeaderText] = React.useState('Pick Training');
@@ -11,10 +12,13 @@ function Booking(props) {
     const [selectedTemplate, selectTemplate] = React.useState({});
     const [selectedTime, selectTime] = React.useState({});
     const [activePage, setActivePage] = React.useState(0);
+    const [pageContent, setPageContent] = React.useState(undefined);
 
     useEffect(() => {
-        bookingStore.subscribe(() => setOpen(bookingStore.getState().open));
+        const abortController = new AbortController();
 
+        bookingStore.subscribe(() => setOpen(bookingStore.getState().open));
+        getContent(abortController.signal);
         switch (activePage) {
             case 0:
                 setHeaderText('Pick Training');
@@ -30,10 +34,14 @@ function Booking(props) {
                 break;
         }
 
-        return () => { };
-
+        return () => abortController.abort();
     }, [activePage]);
 
+
+    const getContent = async (signal) => {
+        const response = await HTTP.GET('/page-content/bookingWindow', signal);
+        setPageContent(response.data);
+    }
 
     const confirmBookingProps = () => {
         return {
@@ -49,7 +57,7 @@ function Booking(props) {
                     insert_invitation
                 </span>
 
-                Book An Appointment
+                {pageContent !== undefined && pageContent.button1}
             </div>
 
             <div className={`booking-window ${open ? 'open' : 'closed'}`}>
@@ -63,7 +71,6 @@ function Booking(props) {
                         {activePage === 1 && <PickTime setActivePage={setActivePage} selectTime={selectTime} selectedTemplate={selectedTemplate} />}
                         {activePage === 2 && <ConfirmBooking setOpen={setOpen} setActivePage={setActivePage} {...confirmBookingProps()} />}
                     </div>
-
                     {
                         activePage > 0 &&
                         <footer>

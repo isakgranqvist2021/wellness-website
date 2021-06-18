@@ -8,17 +8,17 @@ import Nav from '../Nav/Nav';
 import Alerts from '../Alerts/Alerts';
 import Booking from '../Booking/Booking';
 import Home from '../../Pages/Home/Home';
-import Pricing from '../../Pages/Pricing';
-import About from '../../Pages/About';
-import Contact from '../../Pages/Contact';
-import OpeningTimes from '../../Pages/OpeningTimes';
+import Pricing from '../../Pages/Pricing/Pricing';
+import About from '../../Pages/About/About';
+import Contact from '../../Pages/Contact/Contact';
+import OpeningTimes from '../../Pages/OpeningTimes/OpeningTimes';
 import Login from '../../Pages/Auth/Login/Login';
 import Register from '../../Pages/Auth/Register/Register';
-import LightTherapy from '../../Pages/LightTherapy';
-import EmsTraining from '../../Pages/EmsTraining';
-import AbdominalTraining from '../../Pages/AbdominalTraining';
+import LightTherapy from '../../Pages/LightTherapy/LightTherapy';
+import EmsTraining from '../../Pages/EmsTraining/EmsTraining';
+import AbdominalTraining from '../../Pages/AbdominalTraining/AbdominalTraining';
 import Images from '../../Pages/Auth/Dashboard/Images/Images';
-import Requests from '../../Pages/Auth/Dashboard/Requests/Requests';
+import Bookings from '../../Pages/Auth/Dashboard/Booking/Booking';
 import Templates from '../../Pages/Auth/Dashboard/Templates/Templates';
 import AddTemplate from '../../Pages/Auth/Dashboard/AddTemplate/AddTemplate';
 import ConfirmBooking from '../../Pages/ConfirmBooking/ConfirmBooking';
@@ -44,7 +44,7 @@ function DashboardRouter(props) {
             <div className="Dashboard-Page container">
                 <Switch>
                     <GuardedRoute path="/dashboard/manage-images" component={Images} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/manage-requests" component={Requests} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/manage-bookings" component={Bookings} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/manage-templates" component={Templates} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/add-template" component={AddTemplate} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/content" component={Content} meta={{ auth: true }} exact />
@@ -107,18 +107,21 @@ function Router(props) {
 
     return (
         <BrowserRouter>
-            <Nav open={open} />
             <Booking />
             <div onClick={toggle} className={`toggle-nav ${open ? 'open' : 'closed'}`}>
                 {!open ? <span className="material-icons">menu</span> : <span className="material-icons">close</span>}
             </div>
-
             <div className={`filler ${open ? 'open' : 'closed'}`}></div>
-            <GuardProvider guards={[requireLogin]} loading={Loading} error={NotFound}>
-                <GuardedRoute path="/" component={HomeRouter} />
-                <GuardedRoute path="/dashboard" component={DashboardRouter} />
-            </GuardProvider>
 
+            <main>
+                <Nav open={open} />
+                <div className="page-content">
+                    <GuardProvider guards={[requireLogin]} loading={Loading} error={NotFound}>
+                        <GuardedRoute path="/" component={HomeRouter} />
+                        <GuardedRoute path="/dashboard" component={DashboardRouter} />
+                    </GuardProvider>
+                </div>
+            </main>
             <Alerts />
         </BrowserRouter>
     );

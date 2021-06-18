@@ -39,9 +39,9 @@ async function createBooking(data) {
     }
 }
 
-async function findBookings() {
+async function findBookings(filter) {
     try {
-        return await BookingModel.find({ confirmed: true }).populate([
+        return await BookingModel.find(filter).populate([
             { path: 'template', model: 'Template' },
             { path: 'service', model: 'Service' }
         ]);
@@ -50,17 +50,20 @@ async function findBookings() {
     }
 }
 
-async function approveBooking(id, newState) {
+async function updateMany(ids) {
     try {
-        const booking = await BookingModel.findOne({ _id: id });
-        booking.approved = newState;
+        const result = await BookingModel.updateMany({ _id: { $in: ids } }, { approved: true });
+        return Promise.resolve(result);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
 
-        await booking.save();
-
-        return Promise.resolve({
-            message: booking.approved ? 'booking approved' : 'booking rejected',
-            email: booking.email
-        });
+async function removeMany(ids) {
+    try {
+        const result = await BookingModel.deleteMany({ _id: { $in: ids } });
+        console.log(result);
+        return Promise.resolve(result);
     } catch (err) {
         return Promise.reject(err);
     }
@@ -78,4 +81,4 @@ async function confirmBooking(confirmKey) {
 
 
 
-export default { createBooking, confirmBooking, approveBooking, findBookings };
+export default { createBooking, confirmBooking, findBookings, updateMany, removeMany };

@@ -13,7 +13,6 @@ function Nav(props) {
 
     useEffect(() => {
         authStore.subscribe(() => setLoggedIn(authStore.getState().loggedIn));
-
         return history.listen((location) => {
             navStore.dispatch({ type: 'set', newState: false });
         });
@@ -73,7 +72,7 @@ function Nav(props) {
                         (
                             <div>
                                 <h3>Administration</h3>
-                                <Link to="/dashboard/manage-requests">Dashboard</Link>
+                                <Link to="/dashboard/manage-bookings">Dashboard</Link>
                                 <button onClick={logout}>Logout</button>
                             </div>
                         )}
