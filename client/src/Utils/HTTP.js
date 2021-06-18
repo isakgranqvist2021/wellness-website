@@ -1,5 +1,5 @@
-// const serverAddr = 'http://localhost:3000';
-const serverAddr = 'https://aileendemo.herokuapp.com';
+const serverAddr = 'http://localhost:3000';
+// const serverAddr = 'https://aileendemo.herokuapp.com';
 
 function headers(excludeContentType) {
     if (!excludeContentType) {

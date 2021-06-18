@@ -35,6 +35,14 @@ h1,h2,h3,h4,h5,h6 {
     font-family: 'Ubuntu', sans-serif;
 }
 
+p {
+    line-height: 1.5;
+}
+
+.block {
+    border-radius: .5rem;
+}
+
 input, textarea {
     width: 100%;
     padding: .75rem;

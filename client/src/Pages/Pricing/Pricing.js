@@ -16,7 +16,7 @@ function Pricing(props) {
                         <li><span>6 month subscription:</span> valid max. 210 days (48 TE / CHF 35)	CHF	1,700</li>
                         <li><span>Annual subscription:</span> valid for 12 months (96 TE / CHF 26)	CHF	2,750</li>
                     </ul>
-                    <p>*) TE = training unit</p>
+                    <p><span class="material-icons">info</span> TE = training unit</p>
                 </div>
 
                 <div className="card">
@@ -31,7 +31,7 @@ function Pricing(props) {
                         <li><span>6 month subscription:</span> valid max. 210 days (80 TE / CHF 50)	CHF	3,990</li>
                         <li><span>Annual subscription:</span> valid for 12 months (96 TE / CHF 45)	CHF	4,770</li>
                     </ul>
-                    <p>*) TE = training unit</p>
+                    <p><span class="material-icons">info</span> TE = training unit</p>
                 </div>
 
                 <div className="card">

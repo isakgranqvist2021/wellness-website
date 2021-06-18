@@ -1,0 +1,15 @@
+.gallery {
+    display: flex;
+    flex-flow: row wrap;
+
+    img {
+        max-height: 200px;
+        object-fit: contain;
+        transition: all 100ms linear;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(.9);
+        }
+    }
+}

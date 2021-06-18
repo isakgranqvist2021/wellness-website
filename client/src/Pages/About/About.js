@@ -19,7 +19,7 @@ function About(props) {
 
     return (
         <div className="container about-page">
-            {pageContent != undefined && <section>
+            {pageContent !== undefined && <section>
                 <div className="block">
                     <h3>{pageContent.title1}</h3>
                     <p>{pageContent.paragraph1}</p>

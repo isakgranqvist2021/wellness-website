@@ -1,2 +1,14 @@
 http://ems-training-basel.ch/
 https://www.incibeauty.de/
+
+
+/*
+    TODO
+
+    delete image when clicked - unless its somewhere in the "pageContent object"
+    make content editable
+    allow user to select from existing images instead of uploading a new one
+    allow user to add a lot of dates fast to booking window
+    contact form
+
+*/

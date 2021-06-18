@@ -77,6 +77,7 @@ function Content(props) {
                             {!nestedKey.includes('img') && <input type="text" value={data[key][nestedKey]} k={key} nk={nestedKey} onChange={(e) => updateField({ val: e.target.value, k: key, nk: nestedKey })} />}
                             {nestedKey.includes('img') && <div className="fileUploadContainer">
                                 <button className="fileUploadHandler" onClick={() => document.getElementById(`input-${i}-${nestedKey}`).click()}><span className="material-icons">upload_file</span></button>
+                                <button>Browse Files</button>
                                 <p>{data[key][nestedKey]}</p>
                                 <input type="file" id={`input-${i}-${nestedKey}`} k={key} nk={nestedKey} onChange={(e) => fileChange({ val: e.target.files, k: key, nk: nestedKey })} />
                             </div>}

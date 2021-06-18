@@ -1,0 +1,26 @@
+.lightTherapy-page {
+    section {
+        p {
+            max-width: 70%;
+            margin-bottom: 1.5rem;
+        }
+
+        iframe {
+            max-width: 60%;
+        }
+    }
+}
+
+@media only screen and(max-width: 1200px) {
+    .lightTherapy-page {
+        section {
+            p {
+                max-width: 100%;
+            }
+            iframe {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+        }
+    }
+}

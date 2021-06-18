@@ -7,7 +7,6 @@ $navWidth: 370px;
     transition: all 315ms ease;
     z-index: 4;
     width: 370px;
-
     box-shadow: 0 0 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
     .nav-content {
@@ -87,10 +86,13 @@ $navWidth: 370px;
         overflow: hidden;
         &.open {
             width: 370px;
+            box-shadow: 0 0 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
         }
     
         &.closed {
             width: 0;
+            box-shadow: none;
+            border-right: 0;
         }
     }
 }

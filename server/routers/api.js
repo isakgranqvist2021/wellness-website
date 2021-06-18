@@ -19,6 +19,7 @@ import serviceController from '../controllers/api/serviceController';
 import templateController from '../controllers/api/templateController';
 import bookingController from '../controllers/api/bookingController';
 import pageSettingsController from '../controllers/api/pageContentController';
+import imagesController from '../controllers/api/imagesController';
 
 router.get('/profile', profileController);
 
@@ -40,5 +41,7 @@ router.put('/remove-bookings', bookingController.removeMany);
 router.put('/update-page-content', pageSettingsController.updateContent);
 
 router.put('/upload-img', upload.single('file'), pageSettingsController.uploadImg);
+
+router.get('/all-images', imagesController.getImages);
 
 export default router;
