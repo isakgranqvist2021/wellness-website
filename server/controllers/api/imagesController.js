@@ -20,7 +20,14 @@ function getImages(req, res) {
 }
 
 async function removeImage(req, res) {
-
+    // check the store.json file so image isn't being used somewhere
+    // if not being used -> unlink the img
+    // else do error or something
+    return res.json({
+        message: 'not implemented',
+        success: false,
+        data: null
+    });
 }
 
 export default {

@@ -14,10 +14,26 @@ function Content(props) {
     const [n, setN] = React.useState(0);
     const [view, setView] = React.useState('pages');
     const [extras, setExtras] = React.useState(undefined);
+    const [imgBrowser, setImgBrowser] = React.useState({ block: '', open: false });
+    const [images, setImages] = React.useState([]);
 
     useEffect(() => {
         const abortController = new AbortController();
-        fetchAccessors(abortController.signal);
+
+        (async () => {
+            const response = await HTTP.GET('/api/accessors', abortController.signal);
+            const imagesResponse = await HTTP.GET('/api/all-images', abortController.signal);
+            if (response.success) {
+                setAccessors(response.data);
+                fetchContent(response.data[0]._id);
+            }
+
+            if (imagesResponse.success) {
+                setImages(imagesResponse.data);
+            }
+
+        })();
+
         return () => abortController.abort();
     }, []);
 
@@ -33,19 +49,10 @@ function Content(props) {
 
         if (response2.success) {
             setExtras(response2.data);
-            console.log(response2);
         }
 
         if (response1.success && response2.success) {
             setLoading(false);
-        }
-    }
-
-    const fetchAccessors = async (signal) => {
-        const response = await HTTP.GET('/api/accessors', signal);
-        if (response.success) {
-            setAccessors(response.data);
-            fetchContent(response.data[0]._id);
         }
     }
 
@@ -83,13 +90,14 @@ function Content(props) {
 
     const saveExtras = async () => {
         const response = await HTTP.PUT('/api/update-extras', JSON.stringify(extras), null, false);
-
         alertsStore.dispatch({
             type: 'set', newState: {
                 text: response.message,
                 error: !response.success
             }
         });
+
+        setTimeout(() => window.location.reload(), 2400);
     }
 
     const uploadFile = async (files, place) => {
@@ -117,6 +125,22 @@ function Content(props) {
         });
     }
 
+    const onImgClick = (image) => {
+        let ex = extras;
+
+        ex[imgBrowser.block][imgBrowser.block === 'nav' ? 'logo' : 'image'] = image;
+        setExtras(ex);
+        setN(n + 1);
+
+        alertsStore.dispatch({
+            type: 'set', newState: {
+                text: 'Image updated, click save to update page',
+                error: false
+            }
+        });
+        setImgBrowser({ block: '', open: false });
+    }
+
     return (
         <div className="EditContent">
             <header>
@@ -134,6 +158,11 @@ function Content(props) {
             {loading && <p>Hold tight...</p>}
             {!loading && view === 'extras' && <div className="extras">
                 <form>
+                    <div className={`imgBrowser ${imgBrowser.open ? 'open' : 'closed'}`} onClick={(e) => setImgBrowser({ block: null, open: imgBrowser.open ? false : true })}>
+                        <div className="imgBrowser-content" onClick={(e) => e.stopPropagation()}>
+                            {images.map((image, i) => <img alt={'img ' + i} onClick={() => onImgClick(image)} key={'imgbrowser-' + i} src={`${HTTP.serverAddr}/uploads/${image}`} />)}
+                        </div>
+                    </div>
                     <section>
                         <h3>Home</h3>
                         <div>
@@ -148,10 +177,11 @@ function Content(props) {
                             <label>Button</label>
                             <input value={extras.home.cta} onChange={(e) => setExtras({ ...extras, home: { ...extras.home, cta: e.target.value } })} />
                         </div>
-                        <div>
-                            <label>Image</label>
+                        <div className="fileUploadContainer">
                             <p>{extras.home.image}</p>
-                            <input type="file" onChange={(e) => uploadFile(e.target.files, 'home')} accept="image/jpg, image/png, image/jpeg" />
+                            <button type="button" onClick={() => document.getElementById('home-file-input').click()}>Browse Files</button>
+                            <button type="button" onClick={() => setImgBrowser({ block: 'home', open: true })}>My Files</button>
+                            <input type="file" id="home-file-input" onChange={(e) => uploadFile(e.target.files, 'home')} accept="image/jpg, image/png, image/jpeg" />
                         </div>
                     </section>
                     <section>
@@ -163,10 +193,11 @@ function Content(props) {
                     </section>
                     <section>
                         <h3>Nav Logo</h3>
-                        <div>
-                            <label>Image</label>
+                        <div className="fileUploadContainer">
                             <p>{extras.nav.logo}</p>
-                            <input type="file" onChange={(e) => uploadFile(e.target.files, 'nav')} accept="image/jpg, image/png, image/jpeg" />
+                            <button type="button" onClick={() => document.getElementById('nav-file-input').click()}>Browse Files</button>
+                            <button type="button" onClick={() => setImgBrowser({ block: 'nav', open: true })}>My Files</button>
+                            <input type="file" id="nav-file-input" onChange={(e) => uploadFile(e.target.files, 'nav')} accept="image/jpg, image/png, image/jpeg" />
                         </div>
                     </section>
                     <button type="button" onClick={saveExtras}>Save Extras</button>

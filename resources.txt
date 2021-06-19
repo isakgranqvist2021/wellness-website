@@ -5,7 +5,5 @@ https://www.incibeauty.de/
 /*
     TODO
 
-    make content editable
-    make logo changeable by user
     allow user to add a lot of dates fast to booking window
 */
