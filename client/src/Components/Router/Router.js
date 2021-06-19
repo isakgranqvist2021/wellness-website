@@ -24,6 +24,7 @@ import AddTemplate from '../../Pages/Auth/Dashboard/AddTemplate/AddTemplate';
 import ConfirmBooking from '../../Pages/ConfirmBooking/ConfirmBooking';
 import Content from '../../Pages/Auth/Dashboard/Content/Content';
 import DashboardNav from '../../Pages/Auth/Dashboard/DashboardNav/DashboardNav';
+import Messages from '../../Pages/Auth/Dashboard/Messages/Messages';
 
 function Loading(props) {
     return (
@@ -48,6 +49,7 @@ function DashboardRouter(props) {
                     <GuardedRoute path="/dashboard/manage-templates" component={Templates} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/add-template" component={AddTemplate} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/content" component={Content} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/messages" component={Messages} meta={{ auth: true }} exact />
                 </Switch>
             </div>
         </div>

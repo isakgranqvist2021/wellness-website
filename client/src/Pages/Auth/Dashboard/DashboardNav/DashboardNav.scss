@@ -6,9 +6,13 @@
     align-items: center;
     display: flex;
 
+    .toggleAdminMenu {
+        display: none;
+    }
     .container {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         padding: 2rem 0;
 
         a {
@@ -28,25 +32,58 @@
 
 @media only screen and (max-width: 1200px) {
     .dashboard-nav {
+        position: relative;
+        height: 5rem;
+
+        .toggleAdminMenu {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+
+            button {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border: none;
+                padding: 10px;
+                margin-right: 1rem;
+                background-color: #0c55c4;
+                color: #ffffff;
+                border-radius: .5rem;
+                cursor: pointer;
+                
+                span {
+                    transition: all 200ms linear;
+
+                    &.open {
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+        }
+
+        .container {
+            position: absolute;
+            top: 100%;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 0;
+            background-color: #ffffff;
+            width: 100%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            z-index: 5;
+            &.closed {
+                display: none;
+            }
+        }
+
         a {
-            font-size: .85rem;
-            text-align: center;
-
-            &:not(:last-of-type) {
-                margin-right: 0;
-            }
-
-            &:nth-child(odd) {
-                margin-right: .8rem;
-            }
-
-            &:nth-child(even) {
-                margin-left: .8rem;
-            }
-
-            &::after {
-                display: none !important;
-            }
+            text-align: left;
+            margin: 0;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid lightgray;
+            display: block;
+            width: 100%;
         }
     }
 }

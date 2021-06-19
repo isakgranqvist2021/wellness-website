@@ -4,19 +4,19 @@ const router = express.Router();
 import indexController from '../controllers/index/indexController';
 import loginController from '../controllers/index/loginController';
 import registerController from '../controllers/index/registerController';
+import contactController from '../controllers/index/contactController';
 
 import templateController from '../controllers/api/templateController';
 import serviceController from '../controllers/api/serviceController';
 import bookingController from '../controllers/api/bookingController';
-import pageContentController from '../controllers/api/pageContentController';
 
-router.get('/all-content', indexController);
-router.get('/page-content/:field', pageContentController.getContent);
-router.post('/register', registerController);
-router.post('/login', loginController);
+router.get('/content/:accessor', indexController.index);
+router.post('/register', registerController.register);
+router.post('/login', loginController.login);
 router.get('/get-templates', templateController.findTemplates);
 router.get('/find-services/:tid', serviceController.findServicesByTemp);
 router.post('/create-booking', bookingController.createBooking);
 router.get('/confirm-booking/:confirmKey', bookingController.confirmBooking);
+router.post('/contact', contactController.contact);
 
 export default router;

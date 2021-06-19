@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import '../Page.scss';
 import HTTP from '../../../../Utils/HTTP';
+import alertsStore from '../../../../Store/alerts.store';
 import './Images.scss';
+import '../Page.scss';
 
 function Images(props) {
     const [images, setImages] = React.useState([]);
@@ -20,16 +21,27 @@ function Images(props) {
     }
 
     const deleteImg = async (img) => {
-        console.log(img);
+        const response = await HTTP.DELETE(`/api/remove-img/${img}`);
+        if (response.success) {
+            fetchImages();
+        }
+
+        alertsStore.dispatch({
+            type: 'set', newState: {
+                text: response.message,
+                error: !response.success
+            }
+        });
     }
 
     return (
         <div>
             <h1>Images</h1>
             <div className="gallery">
-                {images.map((img, i) => {
-                    return <img key={i} alt={img} src={`${HTTP.serverAddr}/uploads/${img}`} onClick={() => deleteImg(img)} />
-                })}
+                {
+                    images.map((img, i) =>
+                        <img key={i} src={`${HTTP.serverAddr}/uploads/${img}`} alt={'image ' + (i + 1)} onClick={() => deleteImg(img)} />)
+                }
             </div>
         </div>
     )

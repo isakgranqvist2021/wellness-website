@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import HTTP from '../../Utils/HTTP';
 import '../Static.page.scss';
 import './LightTherapy.scss';
 
 function LightTherapy(props) {
+    const [content, setContent] = React.useState([]);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+        fetchContent(abortController.signal);
+        return () => abortController.abort();
+    }, []);
+
+    const fetchContent = async (signal) => {
+        const response = await HTTP.GET('/content/light%20therapy');
+
+        if (response.success) {
+            setContent(response.data.content);
+        }
+    }
+
     return (
         <div className="container lightTherapy-page">
             <h1>Light Therapy</h1>
-            <section>
-                <p>Light therapy—or phototherapy, classically referred to as heliotherapy—consists either of exposure to daylight or some equivalent form of light as a treatment for seasonal affective disorder, or exposure of the skin to specific wavelengths of light using polychromatic polarised light to treat a skin condition.</p>
 
+            <section className="block-layout">
+                {content.map((block, i) => <div className="block" key={'block-' + i} dangerouslySetInnerHTML={{ __html: block }}></div>)}
+            </section>
+
+            <section>
                 <iframe
                     width="1280"
                     height="720"

@@ -2,10 +2,22 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const templateSchema = new Schema({
-    serviceName: { type: String, required: true },
-    active: { type: Boolean, default: true },
-    createdAt: { type: Date, default: Date.now() },
-    updatedAt: { type: Date, default: Date.now() },
+    serviceName: {
+        type: String,
+        required: true
+    },
+    active: {
+        type: Boolean,
+        default: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
+    },
 });
 
 const TemplateModel = mongoose.model('Template', templateSchema);
@@ -20,7 +32,9 @@ async function createTemplate(data) {
 
 async function findTemplates() {
     try {
-        return await TemplateModel.find({ active: true });
+        return await TemplateModel.find({
+            active: true
+        });
     } catch (err) {
         return Promise.reject(err);
     }
@@ -42,4 +56,9 @@ async function updateTemplate(tid, update) {
     }
 }
 
-export default { createTemplate, findTemplates, deleteTemplate, updateTemplate };
+export default {
+    createTemplate,
+    findTemplates,
+    deleteTemplate,
+    updateTemplate
+};

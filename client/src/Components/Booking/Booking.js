@@ -12,13 +12,13 @@ function Booking(props) {
     const [selectedTemplate, selectTemplate] = React.useState({});
     const [selectedTime, selectTime] = React.useState({});
     const [activePage, setActivePage] = React.useState(0);
-    const [pageContent, setPageContent] = React.useState(undefined);
+    const [content, setContent] = React.useState(undefined);
 
     useEffect(() => {
         const abortController = new AbortController();
 
         bookingStore.subscribe(() => setOpen(bookingStore.getState().open));
-        getContent(abortController.signal);
+        fetchContent(abortController.signal);
         switch (activePage) {
             case 0:
                 setHeaderText('Pick Training');
@@ -37,10 +37,11 @@ function Booking(props) {
         return () => abortController.abort();
     }, [activePage]);
 
-
-    const getContent = async (signal) => {
-        const response = await HTTP.GET('/page-content/bookingWindow', signal);
-        setPageContent(response.data);
+    const fetchContent = async (signal) => {
+        const response = await HTTP.GET('/content/extra', signal);
+        if (response.success) {
+            setContent(response.data.bookingWindow);
+        }
     }
 
     const confirmBookingProps = () => {
@@ -57,7 +58,7 @@ function Booking(props) {
                     insert_invitation
                 </span>
 
-                {pageContent !== undefined && pageContent.button1}
+                {content !== undefined && content.buttonText}
             </div>
 
             <div className={`booking-window ${open ? 'open' : 'closed'}`}>

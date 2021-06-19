@@ -18,10 +18,11 @@ import profileController from '../controllers/api/profileController';
 import serviceController from '../controllers/api/serviceController';
 import templateController from '../controllers/api/templateController';
 import bookingController from '../controllers/api/bookingController';
-import pageSettingsController from '../controllers/api/pageContentController';
+import contentController from '../controllers/api/contentController';
 import imagesController from '../controllers/api/imagesController';
+import contactController from '../controllers/api/contactController';
 
-router.get('/profile', profileController);
+router.get('/profile', profileController.profile);
 
 router.post('/create-service', serviceController.createService);
 router.get('/get-services', serviceController.readService);
@@ -34,14 +35,19 @@ router.delete('/delete-template/:tid', templateController.deleteTemplate);
 router.put('/update-template/:tid', templateController.updateTemplate);
 
 router.get('/get-bookings', bookingController.getBookings);
-
 router.put('/approve-bookings', bookingController.approveMany);
 router.put('/remove-bookings', bookingController.removeMany);
 
-router.put('/update-page-content', pageSettingsController.updateContent);
-
-router.put('/upload-img', upload.single('file'), pageSettingsController.uploadImg);
+router.put('/update-content', contentController.updateContent);
+router.put('/update-extras', contentController.updateExtras);
+router.put('/upload-img', upload.single('file'), contentController.uploadImg);
+router.get('/accessors', contentController.accessors);
+router.get('/content/:id', contentController.getContent);
 
 router.get('/all-images', imagesController.getImages);
+router.delete('/remove-img/:fileName', imagesController.removeImage);
+
+router.get('/messages', contactController.getMessages);
+router.delete('/delete-message/:id', contactController.deleteOne);
 
 export default router;

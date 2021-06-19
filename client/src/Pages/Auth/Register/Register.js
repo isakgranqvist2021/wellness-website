@@ -52,16 +52,18 @@ function Register(props) {
                     history.push('/dashboard/manage-bookings');
                     authStore.dispatch({ type: 'login' });
                 }
+            } else {
+                setLoading(false);
             }
-
             alertsStore.dispatch({
                 type: 'set', newState: {
                     text: response.message,
                     error: !response.success
                 }
             });
-            setLoading(false);
+
         } catch (err) {
+            setLoading(false);
             alertsStore.dispatch({
                 type: 'set', newState: {
                     error: true,

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import config from './config';
-import pageContentModel from './models/pageContent.model';
+import contentModel from './models/content.model';
 
 const mongooseOptions = {
     useNewUrlParser: true,
@@ -20,8 +20,9 @@ async function connect() {
 
 async function reload() {
     try {
-        await pageContentModel.dropCollection();
-        await pageContentModel.createPageContent()
+        await contentModel.drop();
+        await contentModel.create();
+
         console.log('Refreshed page content');
     } catch (err) {
         console.log(err);

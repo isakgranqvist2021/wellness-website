@@ -4,31 +4,35 @@ import bookingStore from '../../Store/booking.store';
 import HTTP from '../../Utils/HTTP';
 
 function Home(props) {
-    const [pageContent, setPageContent] = React.useState(undefined);
+    const [content, setContent] = React.useState(undefined);
 
     useEffect(() => {
         const abortController = new AbortController();
-        getContent(abortController.signal);
-
+        fetchContent(abortController.signal);
         return () => abortController.abort();
-    }, []);
+    }, [])
 
-    const getContent = async (signal) => {
-        const response = await HTTP.GET('/page-content/home', signal);
-        setPageContent(response.data);
+    const fetchContent = async (signal) => {
+        const response = await HTTP.GET('/content/extra', signal);
+        if (response.success) {
+            setContent(response.data.home);
+        }
     }
 
     return (
         <div className="home-page">
-            {pageContent !== undefined && <div className="hero-section" style={{ backgroundImage: `url(${HTTP.serverAddr}/uploads/${pageContent.img1})` }}>
-                <div className="content">
-                    <div>
-                        <h1>{pageContent.title1}</h1>
-                        <p>{pageContent.paragraph1}</p>
-                        <button onClick={() => bookingStore.dispatch({ type: 'set', newState: true })}>Book An Appointment</button>
+            {content !== undefined &&
+                <div className="hero-section" style={{ backgroundImage: `url(${HTTP.serverAddr}/uploads/${content.image})` }}>
+
+                    <div className="content">
+                        <div>
+                            <h1>{content.title}</h1>
+                            <p>{content.subtitle}</p>
+                            <button onClick={() => bookingStore.dispatch({ type: 'set', newState: true })}>{content.cta}</button>
+                        </div>
                     </div>
                 </div>
-            </div>}
+            }
         </div>
     );
 }

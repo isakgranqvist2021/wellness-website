@@ -1,4 +1,4 @@
-function profileController(req, res) {
+function profile(req, res) {
     return res.json({
         message: 'validation success',
         success: true,
@@ -6,4 +6,6 @@ function profileController(req, res) {
     });
 }
 
-export default profileController;
+export default {
+    profile
+};

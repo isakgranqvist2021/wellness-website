@@ -19,8 +19,11 @@ function getImages(req, res) {
     }
 }
 
-function removeImage(req, res) {
+async function removeImage(req, res) {
 
 }
 
-export default { getImages, removeImage };
+export default {
+    getImages,
+    removeImage
+};

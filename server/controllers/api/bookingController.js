@@ -7,12 +7,36 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 async function createBooking(req, res) {
-    if (!req.body.name) return res.json({ message: 'please enter your name', success: false, data: null });
-    if (!req.body.email) return res.json({ message: 'please enter your email', success: false, data: null });
-    if (!req.body.phone) return res.json({ message: 'please enter your phone number', success: false, data: null });
-    if (!req.body.template) return res.json({ message: 'something fishy is going on', success: false, data: null });
-    if (!req.body.service) return res.json({ message: 'something fishy is going on', success: false, data: null });
-    if (!validators.emailValidator(req.body.email)) return res.json({ message: 'are you sure that\'s your email?', success: false, data: null });
+    if (!req.body.name) return res.json({
+        message: 'please enter your name',
+        success: false,
+        data: null
+    });
+    if (!req.body.email) return res.json({
+        message: 'please enter your email',
+        success: false,
+        data: null
+    });
+    if (!req.body.phone) return res.json({
+        message: 'please enter your phone number',
+        success: false,
+        data: null
+    });
+    if (!req.body.template) return res.json({
+        message: 'something fishy is going on',
+        success: false,
+        data: null
+    });
+    if (!req.body.service) return res.json({
+        message: 'something fishy is going on',
+        success: false,
+        data: null
+    });
+    if (!validators.emailValidator(req.body.email)) return res.json({
+        message: 'are you sure that\'s your email?',
+        success: false,
+        data: null
+    });
 
     try {
         const newBooking = await bookingModel.createBooking(req.body);
@@ -33,25 +57,45 @@ async function createBooking(req, res) {
             })
         });
 
-        return res.json({ message: 'we have received your booking, please check your email for a response.', success: true, data: newBooking });
+        return res.json({
+            message: 'we have received your booking, please check your email for a response.',
+            success: true,
+            data: newBooking
+        });
     } catch (err) {
-        return res.json({ message: 'something fishy is going on', success: false, data: null });
+        return res.json({
+            message: 'something fishy is going on',
+            success: false,
+            data: null
+        });
     }
 }
 
 async function getBookings(req, res) {
     try {
         const bookings = await bookingModel.findBookings({});
-        return res.json({ message: '', success: true, data: bookings });
+        return res.json({
+            message: '',
+            success: true,
+            data: bookings
+        });
     } catch (err) {
-        return res.json({ message: 'something fishy is going on', success: false, data: null });
+        return res.json({
+            message: 'something fishy is going on',
+            success: false,
+            data: null
+        });
     }
 }
 
 async function approveMany(req, res) {
     try {
         const result = await bookingModel.updateMany(req.body.bookings);
-        const bookings = await bookingModel.findBookings({ _id: { $in: req.body.bookings } });
+        const bookings = await bookingModel.findBookings({
+            _id: {
+                $in: req.body.bookings
+            }
+        });
 
         await Promise.all(bookings.map(async (booking) => {
             return await sendEmail({
@@ -108,10 +152,24 @@ async function confirmBooking(req, res) {
 
     try {
         const result = await bookingModel.confirmBooking(req.params.confirmKey);
-        return res.json({ message: 'booking confirmed', success: true, data: result });
+        return res.json({
+            message: 'booking confirmed',
+            success: true,
+            data: result
+        });
     } catch (err) {
-        return res.json({ message: 'something fishy is going on', success: false, data: null });
+        return res.json({
+            message: 'something fishy is going on',
+            success: false,
+            data: null
+        });
     }
 }
 
-export default { createBooking, confirmBooking, getBookings, approveMany, removeMany };
+export default {
+    createBooking,
+    confirmBooking,
+    getBookings,
+    approveMany,
+    removeMany
+};

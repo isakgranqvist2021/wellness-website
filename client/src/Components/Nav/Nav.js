@@ -1,23 +1,35 @@
 import React, { useEffect } from 'react';
 import './Nav.scss';
 import { Link, useHistory } from 'react-router-dom';
-import logo from './main-logo.png';
 import navStore from '../../Store/nav.store';
 import auth from '../../Utils/Auth';
 import authStore from '../../Store/auth.store';
 import alertsStore from '../../Store/alerts.store';
+import HTTP from '../../Utils/HTTP';
 
 function Nav(props) {
     const history = useHistory();
     const [loggedIn, setLoggedIn] = React.useState(auth.isLoggedIn());
+    const [content, setContent] = React.useState(undefined);
 
     useEffect(() => {
+        const abortController = new AbortController();
         authStore.subscribe(() => setLoggedIn(authStore.getState().loggedIn));
-        return history.listen((location) => {
+        fetchContent(abortController.signal);
+        history.listen((location) => {
             navStore.dispatch({ type: 'set', newState: false });
         });
 
+        return () => abortController.abort();
     }, [history])
+
+    const fetchContent = async (signal) => {
+        const response = await HTTP.GET('/content/extra', signal);
+
+        if (response.success) {
+            setContent(response.data.nav);
+        }
+    }
 
     const logout = () => {
         setLoggedIn(false);
@@ -30,15 +42,18 @@ function Nav(props) {
                 text: 'see you!',
                 error: false
             }
-        })
+        });
     }
 
     return (
         <nav className={props.open ? 'main-nav open' : 'main-nav closed'} onClick={(e) => e.stopPropagation()}>
             <div className="nav-content">
-                <Link to="/">
-                    <img src={logo} alt="Page Logo" />
-                </Link>
+                {content !== undefined &&
+                    <Link to="/">
+                        <img src={`${HTTP.serverAddr}/uploads/${content.logo}`} alt="Page Logo" />
+                    </Link>
+                }
+
 
                 <div className="link-group">
                     <p>

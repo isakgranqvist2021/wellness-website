@@ -1,31 +1,29 @@
 .alerts-container {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
     z-index: 6;
     padding: 1.5rem;
-
-
+    font-size: 1.7rem;
+    
     &.error {
         background-color: rgb(252, 132, 132);
-        color: rgb(83, 4, 4);
+        color: rgb(255, 255, 255);
 
         .alerts-content {
             .icon {
-                border: 1px solid rgb(83, 4, 4);
-                color:rgb(83, 4, 4);
+                color:rgb(83, 4, 4);            
             }
         }
     }
 
     &.success {
-        background-color: green;
-        color: rgb(152, 236, 152);
-
+        background-color: rgb(122, 197, 112);
+        color: rgb(255, 255, 255);
+        
         .alerts-content {
             .icon {
-                border: 1px solid green;
                 color: green;
             }
         }
@@ -51,7 +49,7 @@
         .icon {
             position: absolute;
             z-index: 5;
-            bottom: 100%;
+            top: 100%;
             left: 50%;
             transform: translateX(-50%);
             background-color: #fff;
@@ -61,11 +59,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
         }
     
         span.close-icon {
             cursor: pointer;
         }
-    
     }
 }

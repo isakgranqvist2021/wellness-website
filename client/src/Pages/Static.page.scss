@@ -3,7 +3,18 @@
     
     h1 {
         margin: 0 0 2rem 0;
-        font-size: 3rem;
+        font-size: 4rem;
+        color: rgb(78, 78, 78);
+        text-transform: capitalize;
+    }
+
+    .block-layout {
+        .block {
+            display: block;
+            margin: 2rem 0;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            padding: 2rem;
+        }
     }
 }
 
@@ -11,6 +22,7 @@
     .container {
         h1 {
             text-align: center;
+            font-size: 3rem;
         }
     }
 }
