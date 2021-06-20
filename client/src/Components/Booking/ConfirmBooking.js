@@ -1,43 +1,29 @@
 import React from 'react';
+import moment from 'moment';
 import './Window.scss';
 import './ConfirmBooking.scss';
-import HTTP from '../../Utils/HTTP';
-import alertsStore from '../../Store/alerts.store';
 
 function ConfirmBooking(props) {
     const [name, setName] = React.useState('');
     const [phone, setPhone] = React.useState('');
     const [email, setEmail] = React.useState('');
 
-    const submit = async () => {
-        const response = await HTTP.POST('/create-booking', JSON.stringify({
-            template: props.selectedTemplate._id,
-            service: props.selectedTime._id,
-            name,
-            phone,
-            email
-        }));
-
-        if (response.success) {
-            setName('');
-            setPhone('');
-            setEmail('');
-
-            props.setOpen(false);
-            props.setActivePage(0);
-        }
-
-        alertsStore.dispatch({
-            type: 'set', newState: {
-                text: response.message,
-                error: !response.success
-            }
+    const submit = () => {
+        props.placeBooking({
+            name: name,
+            phone: phone,
+            email: email
         });
     }
 
     return (
         <div className="Booking-Window">
             <h3>Confirm Your Booking</h3>
+
+            <div className="bookingOverview">
+                <p>{props.pickedTime.program}</p>
+                <p>{moment(props.pickedTime.date).format('MM/DD')} {props.pickedTime.time}</p>
+            </div>
 
             <form>
                 <section>

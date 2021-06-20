@@ -12,14 +12,13 @@ function DashboardNav(props) {
             </div>
             <div className={`container ${!menuOpen ? 'closed' : 'open'}`}>
                 <div>
-                    <Link to="/dashboard/manage-bookings">Bookings</Link>
-                    <Link to="/dashboard/manage-templates">My Templates</Link>
+                    <Link to="/dashboard/bookings">Bookings</Link>
+                    <Link to="/dashboard/schedule">Schedule</Link>
                     <Link to="/dashboard/messages">Messages</Link>
                 </div>
 
                 <div>
-                    <Link to="/dashboard/add-template">Add Template</Link>
-                    <Link to="/dashboard/manage-images">Images</Link>
+                    <Link to="/dashboard/images">Images</Link>
                     <Link to="/dashboard/content">Content</Link>
                 </div>
             </div>

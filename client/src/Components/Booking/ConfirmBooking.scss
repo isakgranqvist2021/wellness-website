@@ -1,4 +1,19 @@
 .Booking-Window {
+    padding-bottom: 2rem;
+    .bookingOverview {
+        text-align: center;
+        width: 75%;
+        margin: 0 auto;
+        border: 1px solid #0c55c4;
+        color: #0c55c4;
+        padding: 2rem 1rem;
+        border-radius: .5rem;
+
+        p {
+            font-weight: bold;
+        }
+    }
+    
     form {
         width: 75%;
         margin: 0 auto;

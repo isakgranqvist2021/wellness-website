@@ -5,12 +5,13 @@ import PickTraining from './PickTraining';
 import PickTime from './PickTime';
 import ConfirmBooking from './ConfirmBooking';
 import HTTP from '../../Utils/HTTP';
+import alertsStore from '../../Store/alerts.store';
 
 function Booking(props) {
     const [headerText, setHeaderText] = React.useState('Pick Training');
     const [open, setOpen] = React.useState(false);
-    const [selectedTemplate, selectTemplate] = React.useState({});
-    const [selectedTime, selectTime] = React.useState({});
+    const [program, selectProgram] = React.useState({});
+    const [pickedTime, pickTime] = React.useState({});
     const [activePage, setActivePage] = React.useState(0);
     const [content, setContent] = React.useState(undefined);
 
@@ -44,10 +45,35 @@ function Booking(props) {
         }
     }
 
-    const confirmBookingProps = () => {
-        return {
-            selectedTemplate,
-            selectedTime
+    const placeBooking = async (data) => {
+        let newData = pickedTime;
+        const emails = newData.bookedBy.map(bb => bb.email);
+        console.log('place booking');
+
+        if (!emails.includes(data.email)) {
+            newData.bookedBy.push({ ...data, createdAt: new Date() });
+
+            const response = await HTTP.POST('/place-booking', JSON.stringify(newData), null);
+
+            alertsStore.dispatch({
+                type: 'set', newState: {
+                    error: !response.success,
+                    text: response.message
+                }
+            });
+
+            if (response.success) {
+                setOpen(false);
+                setActivePage(0);
+            }
+
+        } else {
+            alertsStore.dispatch({
+                type: 'set', newState: {
+                    error: true,
+                    text: 'You have already placed a booking'
+                }
+            });
         }
     }
 
@@ -68,9 +94,9 @@ function Booking(props) {
                         <span className="material-icons close-window" onClick={() => setOpen(false)}>close</span>
                     </header>
                     <div className="booking-window-body">
-                        {activePage === 0 && <PickTraining setActivePage={setActivePage} selectTemplate={selectTemplate} />}
-                        {activePage === 1 && <PickTime setActivePage={setActivePage} selectTime={selectTime} selectedTemplate={selectedTemplate} />}
-                        {activePage === 2 && <ConfirmBooking setOpen={setOpen} setActivePage={setActivePage} {...confirmBookingProps()} />}
+                        {activePage === 0 && <PickTraining setActivePage={setActivePage} selectProgram={selectProgram} />}
+                        {activePage === 1 && <PickTime setActivePage={setActivePage} pickTime={pickTime} program={program} />}
+                        {activePage === 2 && <ConfirmBooking setActivePage={setActivePage} placeBooking={placeBooking} pickedTime={pickedTime} />}
                     </div>
                     {
                         activePage > 0 &&

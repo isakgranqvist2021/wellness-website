@@ -1,0 +1,67 @@
+.schedule {
+    form {
+        section {
+            margin: 1rem 0;
+        
+            label {
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            select {
+                width: 100%;
+            }
+        }
+
+        .submit-times {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: #0e9715;
+            border: none;
+            color: #fff;
+            border-radius: .5rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #17b11f;
+            }
+        }
+
+        .times {
+            display: flex;
+            flex-direction: column;
+        
+            .time {
+                background-color: #0c55c4;
+                padding: 1rem;
+                color: #fff;
+                border-radius: .5rem;
+                cursor: pointer;
+                border: .2rem solid #fff;
+                margin: .25rem 0;
+                transition: all 200ms linear;
+                position: relative;
+
+                &.selected {
+                    &::after {
+                        position: absolute;
+                        content: '\e876';
+                        right: 1rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-family: 'Material Icons';
+                        font-size: 2rem;
+                    }
+                }
+
+                &:hover {
+                    background-color: #1263db;
+                }
+            }
+        }
+    }
+}

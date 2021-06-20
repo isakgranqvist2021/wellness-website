@@ -2,14 +2,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema({
-    template: {
-        type: Schema.Types.ObjectId,
-        ref: 'Template'
-    },
-    service: {
-        type: Schema.Types.ObjectId,
-        ref: 'Service'
-    },
     createdAt: {
         type: Date,
         default: Date.now()
@@ -18,35 +10,29 @@ const bookingSchema = new Schema({
         type: Date,
         default: Date.now()
     },
-    approved: {
-        type: Boolean,
-        default: false
+    date: {
+        type: Date,
+        required: true
     },
-    confirmed: {
-        type: Boolean,
-        default: false
-    },
-    confirmKey: {
+    time: {
         type: String,
         required: true
     },
-    bookingId: {
+    program: {
         type: String,
         required: true
     },
-    name: {
-        type: String,
+    duration: {
+        type: Number,
         required: true
     },
-    phone: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
+    bookedBy: {
+        type: Array,
+        default: []
     }
 });
+
+const BookingModel = mongoose.model('Booking', bookingSchema);
 
 function newBookingId(length = 15) {
     const runes = 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm123456789'.split('');
@@ -59,82 +45,41 @@ function newBookingId(length = 15) {
     return id;
 }
 
-const BookingModel = mongoose.model('Booking', bookingSchema);
-
-async function createBooking(data) {
-    data.bookingId = newBookingId();
-    data.confirmKey = newBookingId(100);
-
+async function insertNewBookings(data) {
     try {
-        return await new BookingModel(data).save();
+        return await BookingModel.insertMany(data);
     } catch (err) {
         return Promise.reject(err);
     }
 }
 
-async function findBookings(filter) {
+async function findPrograms() {
     try {
-        return await BookingModel.find(filter).populate([{
-            path: 'template',
-            model: 'Template'
-        },
-        {
-            path: 'service',
-            model: 'Service'
-        }
-        ]);
+        return await BookingModel.find({}).select('program').exec();
     } catch (err) {
         return Promise.reject(err);
     }
 }
 
-async function updateMany(ids) {
+async function findTrainingsBy(filter) {
     try {
-        const result = await BookingModel.updateMany({
-            _id: {
-                $in: ids
-            }
-        }, {
-            approved: true
-        });
-        return Promise.resolve(result);
+        return await BookingModel.find(filter);
     } catch (err) {
         return Promise.reject(err);
     }
 }
 
-async function removeMany(ids) {
+async function placeBooking(data) {
     try {
-        const result = await BookingModel.deleteMany({
-            _id: {
-                $in: ids
-            }
-        });
-        console.log(result);
-        return Promise.resolve(result);
+        return await BookingModel.findOneAndUpdate({ _id: data._id }, data);
     } catch (err) {
         return Promise.reject(err);
     }
 }
-
-async function confirmBooking(confirmKey) {
-    try {
-        const booking = await BookingModel.findOne({
-            confirmKey: confirmKey
-        });
-        booking.confirmed = true;
-        return await booking.save();
-    } catch (err) {
-        return Promise.reject(err);
-    }
-}
-
-
 
 export default {
-    createBooking,
-    confirmBooking,
-    findBookings,
-    updateMany,
-    removeMany
+    placeBooking,
+    insertNewBookings,
+    findPrograms,
+    findTrainingsBy
 };

@@ -19,8 +19,7 @@ import EmsTraining from '../../Pages/EmsTraining/EmsTraining';
 import AbdominalTraining from '../../Pages/AbdominalTraining/AbdominalTraining';
 import Images from '../../Pages/Auth/Dashboard/Images/Images';
 import Bookings from '../../Pages/Auth/Dashboard/Booking/Booking';
-import Templates from '../../Pages/Auth/Dashboard/Templates/Templates';
-import AddTemplate from '../../Pages/Auth/Dashboard/AddTemplate/AddTemplate';
+import Schedule from '../../Pages/Auth/Dashboard/Schedule/Shedule';
 import ConfirmBooking from '../../Pages/ConfirmBooking/ConfirmBooking';
 import Content from '../../Pages/Auth/Dashboard/Content/Content';
 import DashboardNav from '../../Pages/Auth/Dashboard/DashboardNav/DashboardNav';
@@ -44,10 +43,9 @@ function DashboardRouter(props) {
             <DashboardNav />
             <div className="Dashboard-Page container">
                 <Switch>
-                    <GuardedRoute path="/dashboard/manage-images" component={Images} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/manage-bookings" component={Bookings} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/manage-templates" component={Templates} meta={{ auth: true }} exact />
-                    <GuardedRoute path="/dashboard/add-template" component={AddTemplate} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/images" component={Images} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/bookings" component={Bookings} meta={{ auth: true }} exact />
+                    <GuardedRoute path="/dashboard/schedule" component={Schedule} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/content" component={Content} meta={{ auth: true }} exact />
                     <GuardedRoute path="/dashboard/messages" component={Messages} meta={{ auth: true }} exact />
                 </Switch>

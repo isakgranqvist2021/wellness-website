@@ -45,7 +45,7 @@ function Login(props) {
 
             if (response.success) {
                 if (auth.setToken(response.data)) {
-                    history.push('/dashboard/manage-bookings');
+                    history.push('/dashboard/bookings');
                     authStore.dispatch({ type: 'login' });
                 }
 

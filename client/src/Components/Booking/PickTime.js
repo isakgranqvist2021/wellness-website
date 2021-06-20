@@ -1,42 +1,40 @@
 import React, { useEffect } from 'react';
 import HTTP from '../../Utils/HTTP';
 import Calendar from 'react-calendar';
+import moment from 'moment';
 import 'react-calendar/dist/Calendar.css';
 import './PickTime.scss';
 import './Window.scss';
 
 function PickTime(props) {
-    const [times, setTimes] = React.useState([]);
     const [date, pickDate] = React.useState(new Date());
-    const [availableTimes, setAvailableTimes] = React.useState([]);
+    const [times, setTimes] = React.useState([]);
+    const [program, setProgram] = React.useState(undefined);
+    const [store, setStore] = React.useState([]);
 
-    useEffect(() => {
-        const abort = new AbortController();
-
-        (async () => {
-            const response = await HTTP.GET('/find-services/' + props.selectedTemplate._id, abort.signal)
-            console.log(response);
-            setTimes(response.data);
-            setAvailableTimes(response.data);
-        })();
-
-        return () => abort.abort();
-    }, [props.selectedTemplate._id]);
-
-    const onDateChange = (d) => {
-        pickDate(d);
-        let availableTimes = times.filter((s) => {
-            let pickedDate = new Date(d).toLocaleDateString();
-            let availableDate = new Date(s.date).toLocaleDateString();
-
-            return pickedDate === availableDate;
-        });
-
-        setAvailableTimes(availableTimes);
+    const dateToUnix = (date) => new Date(moment(date).format('MM/DD/YYYY')).getTime() / 1000;
+    const onDateChange = (date) => {
+        pickDate(date);
+        setTimes(store.filter(time => dateToUnix(time.date) === dateToUnix(date)));
     }
 
-    const pickTime = (t) => {
-        props.selectTime(t);
+    useEffect(() => {
+        const abortController = new AbortController();
+
+        (async () => {
+            setProgram(props.program);
+            const response = await HTTP.GET('/programs/' + props.program.program, abortController.signal);
+            if (response.success) {
+                setStore(response.data);
+                setTimes(response.data);
+            }
+        })();
+
+        return () => abortController.abort();
+    }, [props.program]);
+
+    const pickTime = (time) => {
+        props.pickTime(time);
         props.setActivePage(2);
     }
 
@@ -44,16 +42,16 @@ function PickTime(props) {
         <div className="Booking-Window">
             <h3>Pick A Time</h3>
             <Calendar onChange={onDateChange} value={date} style={{ margin: '0 auto', display: 'block' }} />
-            <button className="showAllTimes" onClick={() => setAvailableTimes(times)}>Show all available times</button>
-            {availableTimes.map((t, i) => {
-                return <div key={i} className="available-date" onClick={() => pickTime(t)}>
-                    <p>{t.instructor.name}</p>
-                    <div>
-                        <span>{t.startTime}</span>
-                        <span>{t.endTime}</span>
-                    </div>
-                </div>
-            })}
+            <div className="times">
+                <h4>{program !== undefined && program.program} <span onClick={() => {
+                    setTimes(store);
+                    pickDate(new Date());
+                }}>Show all times</span></h4>
+                {times.map((time, i) => <div key={'ad-' + i} className="available-date" onClick={() => pickTime(time)}>
+                    <p>{moment(time.date).format('MM/DD')} {time.time}</p>
+                    <p>{time.duration}min</p>
+                </div>)}
+            </div>
         </div>
     )
 }

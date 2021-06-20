@@ -2,7 +2,6 @@
     width: auto;
     border: 1px solid rgb(224, 224, 224);
     border-radius: .7rem;
-
 }
 
 .showAllTimes {
@@ -20,35 +19,43 @@
     }
 }
 
-.available-date {
-    border: 1px solid lightgray;
-    padding: 1rem;
-    border-radius: .7rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #fff;
+.times {
+    padding: 1rem 0;
 
-    &:hover {
-        border-color: #0c55c4;
-        background-color: #fafafa;
-        cursor: pointer;
-    }
+    h4 {
+        margin-bottom: 1rem;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
 
-    span {
-        font-size: .8rem;
-        color:rgb(12, 85, 196);
+        span {
+            color:rgb(12, 98, 168);
 
-        &:not(:last-of-type) {
-            &::after {
-                content: '-';
-                display: inline-block;
-                margin: 0 .5rem;
-            } 
+            &:hover {
+                cursor: pointer;
+                color:rgb(24, 129, 216);
+
+            }
         }
-    } 
-
-    &:not(:first-of-type) {
-        margin-top: 1rem;
+    }
+    
+    .available-date {
+        border: 1px solid lightgray;
+        padding: 1rem;
+        border-radius: .7rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #fff;
+    
+        &:hover {
+            border-color: #0c55c4;
+            background-color: #fafafa;
+            cursor: pointer;
+        }
+    
+        &:not(:first-of-type) {
+            margin-top: 1rem;
+        }
     }
 }

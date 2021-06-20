@@ -3,33 +3,40 @@ import HTTP from '../../Utils/HTTP';
 import './Window.scss';
 
 function PickTraining(props) {
-    const [templates, setTemplates] = React.useState([]);
-
+    const [programs, setPrograms] = React.useState([]);
     useEffect(() => {
         const abort = new AbortController();
 
         (async () => {
-            const response = await HTTP.GET('/get-templates', abort.signal);
-            setTemplates(response.data);
+            const response = await HTTP.GET('/programs', abort.signal);
+            let newState = [];
+            let tracker = [];
+            response.data.forEach(program => {
+                if (!tracker.includes(program.program)) {
+                    newState.push(program);
+                    tracker.push(program.program);
+                }
+            });
+
+            setPrograms(newState);
         })();
 
         return () => abort.abort();
     }, []);
 
-    const selectTemplate = (t) => {
-        props.selectTemplate(t);
+    const selectProgram = (program) => {
+        props.selectProgram(program);
         props.setActivePage(1);
     }
-
 
     return (
         <div className="Booking-Window">
             <h3>Pick Training</h3>
 
-            {templates.map((t, i) => {
+            {programs.map((program, i) => {
                 return (
-                    <div className="category" key={i} onClick={() => selectTemplate(t)}>
-                        <p>{t.serviceName}</p>
+                    <div className="category" key={i} onClick={() => selectProgram(program)}>
+                        <p>{program.program}</p>
                         <span className="material-icons">arrow_right</span>
                     </div>
                 );
